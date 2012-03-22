@@ -1,0 +1,57 @@
+/*en CSS se coloca los estilos de las etiquetas primero, luego los IDs y por último las clases. Todo debe ordenarse en orden alfabético y  mayúsculas a minúsculas*/
+body
+{
+	background: olive;
+	color: white;
+	font-family: Helvetica, Arial;
+	font-size: 16px; /*declarando el font-size global, es muy importante hacerlo porque todos los tamaños relativos dependen de este.*/
+}
+h1
+{
+	text-align: center;
+	text-shadow: 5px 5px 10px rgba(0,0,0,0.8); /*Sombra:1ro desplazamiento en eje X e Y, y difuminación (0px es nítido). Por último el color de la sombra: R,G,B y la opacidad que va de 0 a 1*/
+}
+section
+{
+	background: white;
+	border-radius: 0.5em;
+	margin: 1em auto; /*margen externo, si se pone uno solo aplica para todo, sino se pone primero margen superior e inferior y luego para los laterales*/
+	padding: 1em 0; /*idem el margin pero interno*/
+	vertical-align: top;
+	width: 95%;
+}
+article
+{
+	background: #1A9DE0;
+	border-radius: 0.5em;
+	display: inline-block;
+	margin: 0 2%;
+	min-height: 350px;
+	padding: 0.5em;
+	text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+	transition: all 0.5s ease-in;
+	vertical-align: top;
+	width: 43%;
+}
+section article:hover
+{
+	background: #AAA;
+	transform: rotate(20deg) translateX(30px);
+}
+#primer-parrafo
+{
+	background: white;
+	border-radius: 0.5em; /*1em es una unidad de medida de la fuente, en este caso la más cercana es la del body*/
+	box-shadow: -5px 10px 20px rgba(0,0,0,0.5);
+	color: black;
+	display: block;
+	margin: 1em auto;
+	padding: 1em;
+	width: 70%;	
+}
+.naranja
+{
+	color: orange;
+	font-weight: bold;
+	text-shadow: 5px 5px 5px rgba(0,0,0,0.4);
+}
