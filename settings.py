@@ -1,4 +1,4 @@
-# Django settings for tps project.
+# Django settings for facultad project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -83,7 +83,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '@$q1k=j890!$z467je#syf$tp5!a3)$762a-u1#*icooz-)ynd'
+SECRET_KEY = '!merdvrzo+=*50gwh2)u0+o4y9y53+5d2-v&i*ot!_ss&rrduz'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -100,7 +100,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'tps.urls'
+ROOT_URLCONF = 'facultad.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
