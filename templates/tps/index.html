@@ -1,2 +1,21 @@
-{% extends "base.html" %}
+{% extends "tps/base.html" %}
 
+{% block subhead %}
+	<link type="text/css" href="/static/css/estilos.css" />
+{% endblock %}
+
+{% block body%}
+{% if listaAlumnos %}
+	<ul>
+		{% for alumno in listaAlumnos %}
+			<li>"Legajo: "{{ alumno.nroLegajo }}"   Nombre: "{{ alumno.nombre }}"    Apellido: "{{ alumno.apellido }}</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<section>
+		<article>
+			No hay alumnos
+		</article>
+	</section>
+{% endif %}
+{% endblock %}

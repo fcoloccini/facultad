@@ -33,5 +33,5 @@ class Usuario (Persona):
     
 class Alumno (Usuario):
     nroLegajo = models.CharField(max_length=10)
-    tpsAsignados = models.ManyToManyField(TrabajoPractico)
-    tpsValidados = models.ManyToManyField(TrabajoPractico)
+    tpsAsignados = models.ManyToManyField(TrabajoPractico, blank=True, related_name='tpsAsignados')
+    tpsValidados = models.ManyToManyField(TrabajoPractico, blank=True, related_name='tpsValidados')
