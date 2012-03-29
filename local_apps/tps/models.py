@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Create your models here.
 
@@ -35,3 +36,10 @@ class Alumno (Usuario):
     nroLegajo = models.CharField(max_length=10)
     tpsAsignados = models.ManyToManyField(TrabajoPractico, blank=True, related_name='tpsAsignados')
     tpsValidados = models.ManyToManyField(TrabajoPractico, blank=True, related_name='tpsValidados')
+    
+class TPForm (forms.Form):
+    codigo = forms.IntegerField()
+    titulo = forms.CharField(max_length=300)
+    consigna = forms.CharField()
+    fechaInicio = forms.DateField()
+    fechaFin = forms.DateField(required=False)

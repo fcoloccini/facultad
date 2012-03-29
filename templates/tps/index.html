@@ -4,17 +4,46 @@
 {% endblock %}
 
 {% block body%}
-{% if listaAlumnos %}
-	<ul>
-		{% for alumno in listaAlumnos %}
+<section>
+	<article>
+		<p><strong>Lista de Alumnos:</strong></p>
+		{% if listaAlumnos %}
+		<ul>
+			{% for alumno in listaAlumnos %}
 			<li>"Legajo: "{{ alumno.nroLegajo }}"   Nombre: "{{ alumno.nombre }}"    Apellido: "{{ alumno.apellido }}</li>
-		{% endfor %}
-	</ul>
-{% else %}
-	<section>
-		<article>
-			No hay alumnos
-		</article>
-	</section>
-{% endif %}
+			{% endfor %}
+		</ul>
+		{% else %}
+		<ul>
+			<li>
+				No hay alumnos
+			</li>
+		</ul>
+		{% endif %}
+	</article>
+	<article>
+		<p><strong>Lista de trabajos pr&aacute;cticos:</strong></p>
+		{% if listaTPs %}
+		<ul>
+			{% for tp in listaTPs %}
+			<li>C&oacute;digo: {{ tp.codigo }}
+				<ul>
+					<li>T&iacute;tulo: {{ tp.titulo }}</li>
+					<li>Consigna: {{ tp.consigna }}</li>
+					<li>Fecha inicio: {{ tp.fechaInicio }}</li>
+					<li>Fecha fin: {{ tp.fechaFin }}</li>
+				</ul>
+			</li>
+			{% endfor %}
+		</ul>
+		{% else %}
+		<ul>
+			<li>
+				No hay trabajos pr&aacute;cticos
+			</li>
+		</ul>
+		{% endif %}
+	</article>
+</section>
+<a href="./nuevoTP">A&ntilde;adir un trabajo pr&aacute;ctico</a>
 {% endblock %}

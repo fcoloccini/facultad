@@ -29,15 +29,15 @@ article
 	min-height: 350px;
 	padding: 0.5em;
 	text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-	transition: all 0.5s ease-in;
+	/*transition: all 0.5s ease-in;*/
 	vertical-align: top;
 	width: 43%;
 }
-section article:hover
+/*section article:hover
 {
 	background: #AAA;
 	transform: rotate(20deg) translateX(30px);
-}
+}*/
 #primer-parrafo
 {
 	background: white;
