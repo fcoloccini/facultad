@@ -57,7 +57,18 @@ section article:hover
 }
 .imagen
 {
-	border-radius: 0.5em;
 	background-color: transparent;
+	border-radius: 0.5em;
+	display: block;
 	margin: auto;
+	transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+.imagen:hover
+{
+	background: #AAA;
+	transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
 }

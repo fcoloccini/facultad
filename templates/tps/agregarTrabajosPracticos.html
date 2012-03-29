@@ -1,0 +1,15 @@
+{% extends "tps/base.html" %}
+
+{% block body %}
+<form action="tps/nuevoTP" method="post">
+	{% csrf_token %}
+	<input name="codigo" placeholder="Ingrese código TP" required="" /> <br />
+	<input name="titulo" placeholder="Título TP" required="" /> <br />
+	<textarea name="consigna" placeholder="Consigna" required=""></textarea> <br />
+	<input name="fechaInicio" placeholder="Fecha de activación" type="date" required="" /> <br />
+	<input name="fechaFin" placeholder="Fecha de desactivación" type="date" />
+	<br /> <br />
+	<input type="submit" value="Agregar" />
+	<a href="./">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "tps/base.html" %}
+
+{% block body%}
+	{% if alumno%}
+	<section>
+		{% for tp in alumno.tpsAsignados%}
+			<article>
+				<label>Nro: </label>{{ forloop.counter }}
+				<label>T&iacute;tulo: </label>tp.titulo
+				<label>Consigna: </label>tp.consigna
+				<label></label>
+			</article>
+		{% endfor %}
+	</section>
+	{% endif }
+{% endblock %}
