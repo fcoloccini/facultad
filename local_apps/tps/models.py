@@ -8,7 +8,7 @@ class TrabajoPractico (models.Model):
     titulo = models.CharField(max_length=300)
     consigna = models.TextField()
     fechaInicio = models.DateField('fecha desde la que el tp se activa')
-    fechaFin = models.DateField('fecha hasta la que el tp esta activo')
+    fechaFin = models.DateField(name='fecha hasta la que el tp esta activo', null=True, blank=True)
     def __unicode__(self):
         return self.titulo
     
