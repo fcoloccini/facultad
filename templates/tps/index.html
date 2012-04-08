@@ -10,7 +10,19 @@
 		{% if listaAlumnos %}
 		<ul>
 			{% for alumno in listaAlumnos %}
-			<li>"Legajo: "{{ alumno.nroLegajo }}"   Nombre: "{{ alumno.nombre }}"    Apellido: "{{ alumno.apellido }}</li>
+			<li>Legajo: {{ alumno.nroLegajo }}
+				<ul>
+					<li>Nombre: {{ alumno.nombre }}</li>
+					<li>Apellido: {{ alumno.apellido }}</li>
+					<li>Direcci&oacute;n: {{ alumno.direccion }}</li>
+					<li>Tel&eacute;fono: {{ alumno.telefono }}</li>
+					<li>Pa&iacute;s: {{ alumno.pais }}</li>
+					<li>Provincia: {{ alumno.provincia }}</li>
+					<li>Email: {{ alumno.email }}</li>
+					<li>Fecha alta: {{ alumno.fechaAlta }}</li>
+					<li>Fecha baja: {{ alumno.fechaBaja }}</li>
+				</ul>
+			</li>
 			{% endfor %}
 		</ul>
 		{% else %}
@@ -45,5 +57,8 @@
 		{% endif %}
 	</article>
 </section>
-<a href="./nuevoTP">A&ntilde;adir un trabajo pr&aacute;ctico</a>
+<section style="text-align: right; background: transparent">
+	<input type="button" onclick="location.href='./agregarAlumno'" value="A&ntilde;adir un alumno" />
+	<input type="button" onclick="location.href='./agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
+</section>
 {% endblock %}

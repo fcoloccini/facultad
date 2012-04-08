@@ -1,4 +1,4 @@
-from local_apps.tps.models import Alumno, TPForm, TrabajoPractico
+from local_apps.tps.models import Alumno, TPForm, TrabajoPractico, AlumnoForm
 from django.template import Context, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -28,9 +28,6 @@ def trabajosPracticos(request, legajo_id):
         raise Http404
     return render_to_response('tps/trabajosPracticos.html',
                               {'alumno': alumno})
-def nuevoTP(request):
-    return render_to_response('tps/agregarTrabajosPracticos.html',
-                              context_instance=RequestContext(request))
 
 def agregarTP(request):
     if request.method == 'POST':
@@ -46,7 +43,29 @@ def agregarTP(request):
             return HttpResponseRedirect('./')
     else:
         form = TPForm()
-    return render_to_response('tps/agregarTrabajosPracticos.html',
-                              {'form': form,},
+    return render_to_response('tps/forms.html',
+                              {'formTP': form,},
                               context_instance=RequestContext(request))
-        
+
+def agregarAlumno(request):
+    if request.method == 'POST':
+        form = AlumnoForm(request.POST)
+        if form.is_valid():
+            alumno = Alumno()
+            alumno.nroLegajo = form.cleaned_data['nroLegajo']
+            alumno.nombre = form.cleaned_data['nombre']
+            alumno.apellido = form.cleaned_data['apellido']
+            alumno.dieccion = form.cleaned_data['dieccion']
+            alumno.email = form.cleaned_data['email']
+            alumno.fechaAlta = form.cleaned_data['fechaAlta']
+            alumno.fechaBaja = form.cleaned_data['fechaBaja']
+            alumno.pais = form.cleaned_data['pais']
+            alumno.provincia = form.cleaned_data['provincia']
+            alumno.telefono = form.cleaned_data['telefono']
+            alumno.save()
+            return HttpResponseRedirect('./')
+    else:
+        form = AlumnoForm()
+    return render_to_response('tps/forms.html',
+                              {'formAlumno': form,},
+                              context_instance=RequestContext(request))
