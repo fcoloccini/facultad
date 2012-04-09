@@ -85,6 +85,14 @@ input:focus
 	padding: 1em;
 	width: 70%;	
 }
+.helptext
+{
+	display: none;
+}
+span:hover .helptext
+{
+	display: block;
+}
 .naranja
 {
 	color: orange;

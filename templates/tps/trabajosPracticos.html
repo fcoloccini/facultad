@@ -1,9 +1,10 @@
 {% extends "tps/base.html" %}
 
-{% block body%}
+{% block body %}
 	{% if alumno%}
 	<section>
-		{% for tp in alumno.tpsAsignados%}
+		{% if alumno.tpsAsignados_set.count > 0 %}
+		{% for tp in alumno.tpsAsignados_set.all %}
 			<article>
 				<label>Nro: </label>{{ forloop.counter }}
 				<label>T&iacute;tulo: </label>tp.titulo
@@ -11,6 +12,10 @@
 				<label></label>
 			</article>
 		{% endfor %}
+		{% else %}
+		<b>No tenes trabajo pr&aacute;ctico asignado a&uacute;n: </b>
+		<input type="button" onclick="location.href='./asignarTP/{{ alumno.nroLegajo }}'" value="Asignarme un TP" />
+		{% endif %}
 	</section>
-	{% endif }
+	{% endif %}
 {% endblock %}

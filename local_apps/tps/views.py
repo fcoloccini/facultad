@@ -28,10 +28,12 @@ def trabajosPracticos(request, legajo_id):
         raise Http404
     return render_to_response('tps/trabajosPracticos.html',
                               {'alumno': alumno})
-
+def asignarTP(request, legajo_id):
+    return HttpResponseRedirect('../')
+    
 def agregarTP(request):
     if request.method == 'POST':
-        form = TPForm(request.POST)
+        form = TPForm(request.POST, auto_id=False)
         if form.is_valid():
             tp = TrabajoPractico()
             tp.codigo = form.cleaned_data['codigo']
@@ -49,7 +51,7 @@ def agregarTP(request):
 
 def agregarAlumno(request):
     if request.method == 'POST':
-        form = AlumnoForm(request.POST)
+        form = AlumnoForm(request.POST, auto_id=False)
         if form.is_valid():
             alumno = Alumno()
             alumno.nroLegajo = form.cleaned_data['nroLegajo']

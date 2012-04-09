@@ -1,6 +1,5 @@
 from django.db import models
 from django import forms
-
 # Create your models here.
 
 class TrabajoPractico (models.Model):
@@ -38,11 +37,13 @@ class Alumno (Usuario):
     tpsValidados = models.ManyToManyField(TrabajoPractico, blank=True, related_name='tpsValidados')
     
 class TPForm (forms.Form):
-    codigo = forms.IntegerField()
-    titulo = forms.CharField(max_length=300)
-    consigna = forms.CharField()
-    fechaInicio = forms.DateField(label="Fecha inicio")
-    fechaFin = forms.DateField(required=False, label="Fecha fin")
+    codigo = forms.IntegerField(help_text="Este es el codigo unico del trabajo practico", widget=forms.TextInput({ "placeholder": "Codigo"}))
+    titulo = forms.CharField(max_length=300, widget=forms.TextInput({ "placeholder": "Titulo"}))
+    consigna = forms.CharField(widget=forms.TextInput({ "placeholder": "Consigna"}))
+    fechaInicio = forms.DateField(help_text="Fecha a partir de la cual el TP podra ser asignado",
+                                  label="Fecha inicio",
+                                  widget=forms.TextInput({ "placeholder": "Fecha inicio"}))
+    fechaFin = forms.DateField(required=False, label="Fecha fin", widget=forms.TextInput({ "placeholder": "Fecha fin"}))
 
 class AlumnoForm (forms.Form):
     nroLegajo = forms.CharField(required=True, label = "Nro Legajo",max_length=10, widget=forms.TextInput({ "placeholder": "Nro de Legajo"}))
