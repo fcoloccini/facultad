@@ -10,7 +10,7 @@
 		{% if listaAlumnos %}
 		<ul>
 			{% for alumno in listaAlumnos %}
-			<li>Legajo: {{ alumno.nroLegajo }}
+			<li><a href="./{{ alumno.nroLegajo }}">Legajo: {{ alumno.nroLegajo }}</a>
 				<ul>
 					<li>Nombre: {{ alumno.nombre }}</li>
 					<li>Apellido: {{ alumno.apellido }}</li>

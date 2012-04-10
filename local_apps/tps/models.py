@@ -6,6 +6,7 @@ class TrabajoPractico (models.Model):
     codigo = models.PositiveIntegerField()
     titulo = models.CharField(max_length=300)
     consigna = models.TextField()
+    nrosLegajosAsignados = models.CharField(max_length=19)
     fechaInicio = models.DateField('fecha desde la que el tp se activa')
     fechaFin = models.DateField(name='fecha hasta la que el tp esta activo', null=True, blank=True)
     def __unicode__(self):
@@ -46,7 +47,7 @@ class TPForm (forms.Form):
     fechaFin = forms.DateField(required=False, label="Fecha fin", widget=forms.TextInput({ "placeholder": "Fecha fin"}))
 
 class AlumnoForm (forms.Form):
-    nroLegajo = forms.CharField(required=True, label = "Nro Legajo",max_length=10, widget=forms.TextInput({ "placeholder": "Nro de Legajo"}))
+    nroLegajo = forms.CharField(required=True, label = "Nro Legajo",max_length=10, widget=forms.TextInput({ "placeholder": "Ej: A-1234/1"}))
     nombre = forms.CharField(max_length=200, widget=forms.TextInput({ "placeholder": "Nombre Alumno"}))
     apellido = forms.CharField(max_length=200, widget=forms.TextInput({ "placeholder": "Apellido Alumno"}))
     direccion = forms.CharField(max_length=200, required=False, widget=forms.TextInput({ "placeholder": "Direccion"}))

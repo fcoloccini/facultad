@@ -29,6 +29,11 @@ def trabajosPracticos(request, legajo_id):
     return render_to_response('tps/trabajosPracticos.html',
                               {'alumno': alumno})
 def asignarTP(request, legajo_id):
+    alumno = Alumno.objects.get(nroLegajo=legajo_id)
+    nroLegajoAsignacion = alumno.nroLegajo
+    if alumno.tpsAsignados_set.count < 0:
+        tp = TrabajoPractico.objects.get(nrosLegajosAsignados=nroLegajoAsignacion)
+        alumno.tpsAsignados_set.add(tp)
     return HttpResponseRedirect('../')
     
 def agregarTP(request):
@@ -71,3 +76,6 @@ def agregarAlumno(request):
     return render_to_response('tps/forms.html',
                               {'formAlumno': form,},
                               context_instance=RequestContext(request))
+
+def validarLegajo(legajo_id):
+    return False
