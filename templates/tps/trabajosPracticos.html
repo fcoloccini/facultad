@@ -3,18 +3,27 @@
 {% block body %}
 	{% if alumno%}
 	<section>
-		{% if alumno.tpsAsignados_set.count > 0 %}
-		{% for tp in alumno.tpsAsignados_set.all %}
-			<article>
-				<label>Nro: </label>{{ forloop.counter }}
-				<label>T&iacute;tulo: </label>tp.titulo
-				<label>Consigna: </label>tp.consigna
-				<label></label>
-			</article>
-		{% endfor %}
+		{% if alumno.tpsAsignados.count > 0 %}
+		<article>
+			{% for tp in alumno.tpsAsignados.all %}
+			<ul>
+				<li>Nro: {{ forloop.counter }}<br />
+				C&oacute;digo: {{ tp.codigo }}</li>
+				<ul>
+					<li>T&iacute;tulo: {{ tp.titulo }}</li>
+					<li>Consigna: {{ tp.consigna }}</li>
+					<li>Nros Legajos Asignados: {{ tp.nrosLegajosAsignados }}</li>
+					<li>Fecha Inicio: {{ tp.fechaInicio }}</li>
+					<li>Fecha Fin: {{ tp.fechaFin }}</li>
+				</ul>
+			</ul>
+			{% endfor %}
+		</article>
 		{% else %}
 		<b>No tenes trabajo pr&aacute;ctico asignado a&uacute;n: </b>
 		<input type="button" onclick="location.href='./asignarTP/{{ alumno.nroLegajo }}'" value="Asignarme un TP" />
+		<p>nroLegajoAsignacion: {{ nroLegajoAsignacion }}</p>
+		<p>cantTPAsignados: {{ cantTPAsignados }}
 		{% endif %}
 	</section>
 	{% endif %}

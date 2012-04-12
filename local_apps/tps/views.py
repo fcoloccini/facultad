@@ -3,6 +3,7 @@ from django.template import Context, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+import re
 
 def index(request):
     listaAlumnos = Alumno.objects.all().order_by('-nombre')[:5]
@@ -27,14 +28,20 @@ def trabajosPracticos(request, legajo_id):
     except Alumno.DoesNotExist:
         raise Http404
     return render_to_response('tps/trabajosPracticos.html',
-                              {'alumno': alumno})
+                              {'alumno': alumno,
+                               'nroLegajoAsignacion': re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.nroLegajo),
+                               'cantTPAsignados':alumno.tpsAsignados.count})
+
 def asignarTP(request, legajo_id):
     alumno = Alumno.objects.get(nroLegajo=legajo_id)
-    nroLegajoAsignacion = alumno.nroLegajo
-    if alumno.tpsAsignados_set.count < 0:
+    nroLegajoAsignacion = re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.nroLegajo)
+    if alumno.tpsAsignados.count < '1':
         tp = TrabajoPractico.objects.get(nrosLegajosAsignados=nroLegajoAsignacion)
-        alumno.tpsAsignados_set.add(tp)
-    return HttpResponseRedirect('../')
+        alumno.tpsAsignados.add(tp)
+        alumno.save()
+        return HttpResponseRedirect('../')
+    #return HttpResponseRedirect('../')
+    return HttpResponseRedirect('/facultad/tps/'+alumno.nroLegajo)
     
 def agregarTP(request):
     if request.method == 'POST':
@@ -44,6 +51,7 @@ def agregarTP(request):
             tp.codigo = form.cleaned_data['codigo']
             tp.titulo = form.cleaned_data['titulo']
             tp.consigna = form.cleaned_data['consigna']
+            tp.nrosLegajosAsignados = form.cleaned_data['nrosLegajosAsignados']
             tp.fechaInicio = form.cleaned_data['fechaInicio']
             tp.fechaFin = form.cleaned_data['fechaFin']
             tp.save()
@@ -62,7 +70,7 @@ def agregarAlumno(request):
             alumno.nroLegajo = form.cleaned_data['nroLegajo']
             alumno.nombre = form.cleaned_data['nombre']
             alumno.apellido = form.cleaned_data['apellido']
-            alumno.dieccion = form.cleaned_data['dieccion']
+            alumno.direccion = form.cleaned_data['direccion']
             alumno.email = form.cleaned_data['email']
             alumno.fechaAlta = form.cleaned_data['fechaAlta']
             alumno.fechaBaja = form.cleaned_data['fechaBaja']
@@ -79,3 +87,10 @@ def agregarAlumno(request):
 
 def validarLegajo(legajo_id):
     return False
+
+def formatLegajoToString(legajo_id):
+    legajo_id_str = re.sub('-|\/','',legajo_id)
+    return legajo_id_str
+
+#def formatLegajoFromString(legajo_id_str):
+#    re.compile(pattern, flags)

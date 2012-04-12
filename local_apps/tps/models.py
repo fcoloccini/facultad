@@ -20,7 +20,7 @@ class Valor (models.Model):
 class Persona (models.Model):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
-    dieccion = models.CharField(max_length=200)
+    direccion = models.CharField(max_length=200)
     telefono = models.CharField(max_length=30)
     pais = models.CharField(max_length=50)
     provincia = models.CharField(max_length=50)
@@ -30,7 +30,7 @@ class Persona (models.Model):
 
 class Usuario (Persona):
     fechaAlta = models.DateField('fecha desde la que el usuario puede ingresar')
-    fechaBaja = models.DateField('fecha hasta la que el usuario puede ingresar')
+    fechaBaja = models.DateField(name='fecha hasta la que el usuario puede ingresar', null=True, blank=True)
     
 class Alumno (Usuario):
     nroLegajo = models.CharField(max_length=10)
@@ -41,6 +41,9 @@ class TPForm (forms.Form):
     codigo = forms.IntegerField(help_text="Este es el codigo unico del trabajo practico", widget=forms.TextInput({ "placeholder": "Codigo"}))
     titulo = forms.CharField(max_length=300, widget=forms.TextInput({ "placeholder": "Titulo"}))
     consigna = forms.CharField(widget=forms.TextInput({ "placeholder": "Consigna"}))
+    nrosLegajosAsignados = forms.CharField(label="Nros Legajos Asignados",
+                                           max_length=19,
+                                           widget=forms.TextInput({ "placeholder": "Ej: 1,2,6,9"}))
     fechaInicio = forms.DateField(help_text="Fecha a partir de la cual el TP podra ser asignado",
                                   label="Fecha inicio",
                                   widget=forms.TextInput({ "placeholder": "Fecha inicio"}))
