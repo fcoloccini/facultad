@@ -25,16 +25,6 @@
 <form action="./agregarAlumno" method="post">
 	{% csrf_token %}
 	{{ formAlumno }}
-	<!--<input name="nombre" placeholder="Nombre Alumno" required="" value={{ formAlumno.nombre }} /> <br />
-	<input name="apellido" placeholder="Apellido Alumno" required="" value="{{ formAlumno.apellido }}" /> <br />
-	<input name="nroLegajo" placeholder="Nro de Legajo" required="" value="{{ formAlumno.nroLegajo }}" /> <br />
-	<input name="direccion" placeholder="Direcci&oacute;n" value="{{ formAlumno.direccion }}" /> <br />
-	<input name="email" placeholder="Email" required="" type="email" value="{{ formAlumno.email }}" /> <br />
-	<input name="telefono" placeholder="Tel&eacute;fono" value="{{ formAlumno.telefono }}" /> <br />
-	<input name="pais" placeholder="Pa&iacute;s" value="{{ formAlumno.pais }}" /> <br />
-	<input name="provincia" placeholder="Provincia" value="{{ formAlumno.provincia }}" /> <br />
-	<input name="fechaAlta" placeholder="Fecha de activación" type="date" required="" value="{{ formAlumno.fechaAlta }}" /> <br />
-	<input name="fechaBaja" placeholder="Fecha de desactivación" value="{{ formAlumno.fechaBaja }}" />-->
 	<br /> <br />
 	<a href="./">Cancelar</a>
 	<input type="submit" value="Agregar" />

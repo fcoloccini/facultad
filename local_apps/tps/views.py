@@ -25,10 +25,12 @@ def error(request):
 def trabajosPracticos(request, legajo_id):
     try:
         alumno = Alumno.objects.get(nroLegajo=legajo_id)
+        form = AlumnoForm(instance=alumno)
     except Alumno.DoesNotExist:
         raise Http404
     return render_to_response('tps/trabajosPracticos.html',
                               {'alumno': alumno,
+                               'formAlumno': form,
                                'nroLegajoAsignacion': re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.nroLegajo),
                                'cantTPAsignados':alumno.tpsAsignados.count})
 
@@ -66,18 +68,19 @@ def agregarAlumno(request):
     if request.method == 'POST':
         form = AlumnoForm(request.POST, auto_id=False)
         if form.is_valid():
-            alumno = Alumno()
-            alumno.nroLegajo = form.cleaned_data['nroLegajo']
-            alumno.nombre = form.cleaned_data['nombre']
-            alumno.apellido = form.cleaned_data['apellido']
-            alumno.direccion = form.cleaned_data['direccion']
-            alumno.email = form.cleaned_data['email']
-            alumno.fechaAlta = form.cleaned_data['fechaAlta']
-            alumno.fechaBaja = form.cleaned_data['fechaBaja']
-            alumno.pais = form.cleaned_data['pais']
-            alumno.provincia = form.cleaned_data['provincia']
-            alumno.telefono = form.cleaned_data['telefono']
-            alumno.save()
+            #alumno = Alumno()
+            #alumno.nroLegajo = form.cleaned_data['nroLegajo']
+            #alumno.nombre = form.cleaned_data['nombre']
+            #alumno.apellido = form.cleaned_data['apellido']
+            #alumno.direccion = form.cleaned_data['direccion']
+            #alumno.email = form.cleaned_data['email']
+            #alumno.fechaAlta = form.cleaned_data['fechaAlta']
+            #alumno.fechaBaja = form.cleaned_data['fechaBaja']
+            #alumno.pais = form.cleaned_data['pais']
+            #alumno.provincia = form.cleaned_data['provincia']
+            #alumno.telefono = form.cleaned_data['telefono']
+            #alumno.save()
+            form.save(commit=True)
             return HttpResponseRedirect('./')
     else:
         form = AlumnoForm()
