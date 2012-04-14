@@ -7,27 +7,31 @@
 {% endblock %}
 
 {% block body %}
-{% if formTP %}
-<form action="./agregarTP" method="post">
-	{% csrf_token %}
-	{{ formTP }}
-	<!--<input name="codigo" placeholder="Ingrese código TP" required="" /> <br />
-	<input name="titulo" placeholder="Título TP" required="" /> <br />
-	<textarea name="consigna" placeholder="Consigna" required=""></textarea> <br />
-	<input name="fechaInicio" placeholder="Fecha de activación" type="date" required="" /> <br />
-	<input name="fechaFin" placeholder="Fecha de desactivación" type="date" />-->
-	<br /> <br />
-	<a href="./">Cancelar</a>
-	<input type="submit" value="Agregar" />
-</form>
-{% endif %}
-{% if formAlumno %}
-<form action="./agregarAlumno" method="post">
-	{% csrf_token %}
-	{{ formAlumno }}
-	<br /> <br />
-	<a href="./">Cancelar</a>
-	<input type="submit" value="Agregar" />
-</form>
-{% endif %}
+<!--<section>-->
+	<article>
+		{% if formTP %}
+		<form action="../agregarTP" method="post">
+			{% csrf_token %}
+			{{ formTP }}
+			<!--<input name="codigo" placeholder="Ingrese código TP" required="" /> <br />
+			<input name="titulo" placeholder="Título TP" required="" /> <br />
+			<textarea name="consigna" placeholder="Consigna" required=""></textarea> <br />
+			<input name="fechaInicio" placeholder="Fecha de activación" type="date" required="" /> <br />
+			<input name="fechaFin" placeholder="Fecha de desactivación" type="date" />-->
+			<br /> <br />
+			<a href="./principal">Cancelar</a>
+			<input type="submit" value="Agregar" />
+		</form>
+		{% endif %}
+		{% if formAlumno %}
+		<form action="../agregarAlumno" method="post">
+			{% csrf_token %}
+			{{ formAlumno }}
+			<br /> <br />
+			<a href="./principal">Cancelar</a>
+			<input type="submit" value="Agregar" />
+		</form>
+		{% endif %}
+	</article>
+<!--</section>-->
 {% endblock %}

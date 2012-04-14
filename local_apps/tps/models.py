@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*- 
 from django.db import models
 from django.forms.models import ModelForm
+from django.forms.widgets import TextInput
 # Create your models here.
 
 class TrabajoPractico (models.Model):
     codigo = models.PositiveIntegerField('Código')
     titulo = models.CharField('Título', max_length=300)
     consigna = models.TextField()
-    nrosLegajosAsignados = models.CharField('Nros Legajos Asignados', max_length=19)
-    fechaInicio = models.DateField('Desde cuándo el tp se activa')
-    fechaFin = models.DateField('Último día en que el tp está activo', null=True, blank=True)
+    nrosLegajosAsignados = models.CommaSeparatedIntegerField('Nros Legajos Asignados', max_length=19)
+    fechaInicio = models.DateField('Desde cuándo se activa')
+    fechaFin = models.DateField('Último día en que está activo', null=True, blank=True)
     def __unicode__(self):
         return self.titulo
     
@@ -30,8 +31,8 @@ class Persona (models.Model):
         return self.nombre+" "+self.apellido
 
 class Usuario (Persona):
-    fechaAlta = models.DateField('Desde cuándo el usuario puede ingresar', auto_now_add=True)
-    fechaBaja = models.DateField('Último día en que el usuario puede ingresar', null=True, blank=True)
+    fechaAlta = models.DateField('Desde cuándo puede ingresar', auto_now_add=True)
+    fechaBaja = models.DateField('Último día en que puede ingresar', null=True, blank=True)
     
 class Alumno (Usuario):
     nroLegajo = models.CharField('Número de Legajo', max_length=10, unique=True)
@@ -53,6 +54,8 @@ class Alumno (Usuario):
 class TPForm (ModelForm):
     class Meta:
         model = TrabajoPractico
+        widgets = {
+                   'nrosLegajosAsignados':TextInput(attrs={'required':'', 'pattern':'(\d,){0,9}(\d?)$'})}
     
 #class AlumnoForm (forms.Form):
 #    nroLegajo = forms.CharField(required=True, label = "Nro Legajo",max_length=10, widget=forms.TextInput({ "placeholder": "Ej: A-1234/1"}))
@@ -69,4 +72,6 @@ class AlumnoForm (ModelForm):
     class Meta:
         model = Alumno
         exclude = ('tpsAsignados', 'tpsValidados',)
-    
+        widgets = {
+                   'nroLegajo': TextInput(attrs={"placeholder": "Ej: A-1234/1 ó A12341"}),}#, "required":"", "pattern":"[A-Z]-\d{4}\/\d"}),}
+        fields = ['nroLegajo','nombre','apellido','direccion','telefono','pais','provincia','email',]

@@ -3,17 +3,6 @@
 {% block body %}
 	{% if alumno%}
 	<section>
-		{% if formAlumno %}
-		<article>
-			<form action="./agregarAlumno" method="post">
-				{% csrf_token %}
-				{{ formAlumno }}
-				<br /> <br />
-				<a href="./">Cancelar</a>
-				<input type="submit" value="Modificar" />
-			</form>
-		</article>
-		{% endif %}
 		{% if alumno.tpsAsignados.count > 0 %}
 		<article>
 			{% for tp in alumno.tpsAsignados.all %}
@@ -36,6 +25,17 @@
 			<input type="button" onclick="location.href='./asignarTP/{{ alumno.nroLegajo }}'" value="Asignarme un TP" />
 			<p>nroLegajoAsignacion: {{ nroLegajoAsignacion }}</p>
 			<p>cantTPAsignados: {{ cantTPAsignados }}
+		</article>
+		{% endif %}
+		{% if formAlumno %}
+		<article>
+			<form action="../agregarAlumno" method="post">
+				{% csrf_token %}
+				{{ formAlumno }}
+				<br /> <br />
+				<a href="/facultad/tps/principal">Cancelar</a>
+				<input type="submit" value="Modificar" />
+			</form>
 		</article>
 		{% endif %}
 	</section>

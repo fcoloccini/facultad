@@ -4,14 +4,14 @@
 {% endblock %}
 
 {% block body%}
-	<img id="logo-fceia" src="/static/images/FCEIA-logo.png" />
+	<a href="/facultad/tps/"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
 <section>
 	<article>
 		<p><strong>Lista de Alumnos:</strong></p>
 		{% if listaAlumnos %}
 		<ul>
 			{% for alumno in listaAlumnos %}
-			<li><a href="./{{ alumno.nroLegajo }}">Legajo: {{ alumno.nroLegajo }}</a>
+			<li><a href="./alumno/{{ alumno.nroLegajo }}">Legajo: {{ alumno.nroLegajo }}</a>
 				<ul>
 					<li>Nombre: {{ alumno.nombre }}</li>
 					<li>Apellido: {{ alumno.apellido }}</li>
@@ -39,7 +39,7 @@
 		{% if listaTPs %}
 		<ul>
 			{% for tp in listaTPs %}
-			<li>C&oacute;digo: {{ tp.codigo }}
+			<li><a href="./{{ tp.codigo }}">C&oacute;digo: {{ tp.codigo }}</a>
 				<ul>
 					<li>T&iacute;tulo: {{ tp.titulo }}</li>
 					<li>Consigna: {{ tp.consigna }}</li>
