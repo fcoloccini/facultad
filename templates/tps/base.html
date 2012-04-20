@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>
-			Asignaci&oacute;n de trabajos pr&aacute;cticos
+			{% block title %}{% endblock %}
 		</title>
 		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
 		<link type="text/css" href="/static/css/estilos.css" rel="stylesheet" />
@@ -12,6 +12,6 @@
 		{% block subHead %}{% endblock %}
 	</head>
 	<body>
-		{% block body %}{% endblock %}
+		{% block content %}{% endblock %}
 	</body>
 </html>

@@ -1,0 +1,53 @@
+.login {
+	background-color: DarkSlateGrey;
+	background-image:-moz-linear-gradient(#557788, rgba(0, 0, 0, 0.65));
+	background-image:-webkit-linear-gradient(#557788, rgba(0, 0, 0, 0.65));
+	background-image:linear-gradient(#557788, rgba(0, 0, 0, 0.65));
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+	box-sizing:border-box;
+    border-radius: 10px;
+	/*box-shadow*/
+	-webkit-box-shadow:0 0.2em 2em -0.2em black;
+	-moz-box-shadow:0 0.2em 2em -0.2em black;
+	-ms-box-shadow:0 0.2em 2em -0.2em black;
+	box-shadow:0 0.2em 2em -0.2em black;
+	color: #AABABA;
+    height: 275px;
+    margin: auto;
+    padding:1px;
+    vertical-align: middle;
+    width: 500px;
+}
+.login form {
+	background-color: transparent;
+	height: 70px;
+	margin: auto;
+	position: relative;
+	top: 7%;
+	width: 424px;
+}
+.login form input[type=submit],
+.login form input[type=reset]{
+	height: 35px;
+	margin-top: 30px;
+}
+.login form input[type=reset]{
+	background-color: transparent;
+	margin-right: 80px;
+	width: 130px;
+}
+.login input[type=text],
+.login input[type=password] {
+	display: inline-block;
+	font-size: 18px;
+	height: 30px;
+	margin: 10px auto;
+	padding: 2px 8px;
+	width: 245px;
+}
+.login label {
+	display: inline-block;
+	width: 175px;
+}

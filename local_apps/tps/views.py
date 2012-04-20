@@ -1,4 +1,4 @@
-from local_apps.tps.models import Alumno, TPForm, TrabajoPractico, AlumnoForm
+from local_apps.tps.models import Alumno, TPForm, TrabajoPractico, AlumnoForm, ValorControl, ValorControlForm
 from django.template import Context, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -30,16 +30,24 @@ def trabajosPracticos(request, tp_codigo):
     try:
         tp = TrabajoPractico.objects.get(codigo=tp_codigo)
         form = TPForm(instance=tp)
+        form.fields['codigo'].widget.attrs['readonly'] = 'True'
     except TrabajoPractico.DoesNotExist:
         raise Http404
+    try:
+        valCtrl = ValorControl.objects.get(trabajoPractico=tp_codigo)
+        valCtrlForm = ValorControlForm(instance=valCtrl)
+    except ValorControl.DoesNotExist:
+        valCtrlForm = ValorControlForm(instance=ValorControl())
     return render_to_response('tps/forms.html',
-                              {'formTP': form,},
+                              {'formTP': form,
+                               'valCtrlForm': valCtrlForm,},
                               context_instance=RequestContext(request))
 
 def alumnos(request, legajo_id):
     try:
         alumno = Alumno.objects.get(nroLegajo=legajo_id)
         form = AlumnoForm(instance=alumno)
+        form.fields['nroLegajo'].widget.attrs['readonly'] = 'True'
     except Alumno.DoesNotExist:
         raise Http404
     return render_to_response('tps/alumnos.html',
@@ -80,8 +88,22 @@ def agregarTP(request):
                               {'formTP': form,},
                               context_instance=RequestContext(request))
 
+def agregarValorCtrl(request, tp_codigo):
+    if request.method == 'POST':
+        form = ValorControlForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/facultad/tps/'+{{ tp_codigo }})
+    else:
+        form = ValorControlForm()
+    return render_to_response('tps/forms.html',
+                              {'formValCtrl': form,},
+                              context_instance=RequestContext(request))
+
 def agregarAlumno(request):
     if request.method == 'POST':
+        nroLegajoStr = formatLegajoToString(request.POST['nroLegajo'])
+        request.POST['nroLegajo'] = nroLegajoStr
         try:
             alumno = Alumno.objects.get(nroLegajo=request.POST['nroLegajo'])
             alumnoInstance = alumno

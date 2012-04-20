@@ -1,0 +1,11 @@
+Usted (o alguien que dijo serlo) requirió registrar una cuenta en 
+{{ site.name }}.  Si no ha sido usted, no se preocupe e ignore este
+correo y su dirección será eliminada de nuestros registros.
+
+Para activar esta cuenta, por favor presione el siguiente enlace 
+dontro de los siguientes {{ expiration_days }} días:
+
+http://{{site.domain}}/accounts/activate/{{ activation_key }}
+
+Saludos cordiales,
+la administración de {{ site.name }}

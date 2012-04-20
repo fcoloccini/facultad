@@ -1,0 +1,28 @@
+{% extends "registration/registration_base.html" %}
+{% block subHead %}
+<link type="text/css" href="/static/css/estilosLogin.css" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+<a href="/facultad/accounts/login/"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
+{% if form.errors %}
+<p>El usuario y clave no coinciden. Por favor intentá de nuevo.</p>
+{% endif %}
+<div class="login">
+	<h1>Ingresa tus datos</h1>
+	<form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
+		<!--{{ form.username.label_tag }}-->
+		<label for="id_username" class="helpIcon">N&uacute;mero de Legajo</label>
+		<span class="helpText">S&oacute;lo letra y n&uacute;meros, sin guion ni barra</span>
+		{{ form.username }}
+		{{ form.password.label_tag }} {{ form.password }}
+		<br />
+		
+		<input type="reset" value="Cancelar" tabindex="4" />
+		<input type="submit" value="Ingresar" />
+		<input type="hidden" name="next" value="{{ next }}" />
+		<p>¿<a href="{% url auth_password_reset %}">Olvidaste</a> tu clave?  ¿<a href="{% url registration_register %}">Necesitas registrarte</a>?</p>
+	</form>
+</div>
+{% endblock %}

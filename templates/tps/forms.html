@@ -1,37 +1,56 @@
 {% extends "tps/base.html" %}
 
-{% block subHead %}
-		<link type="text/css" href="/static/css/bootstrap.css" rel="stylesheet" />
-		<link type="text/css" href="/static/css/bootstrap-responsive.css" rel="stylesheet" />
-		<script type="text/javascript" src="/static/js/bootstrap.js"></script>
+{% block title %}
+{% if formAlumno %}Gesti&oacute;n de alumnos
+{% endif %}
+{% if formTP %}Gesti&oacute;n de trabajos pr&aacute;cticos
+{% endif %}
 {% endblock %}
 
-{% block body %}
-<!--<section>-->
+
+
+{% block content %}
+{% if formTP %}
+<section>
 	<article>
-		{% if formTP %}
-		<form action="../agregarTP" method="post">
+		<form action="../tps/agregarTP" method="post">
 			{% csrf_token %}
 			{{ formTP }}
-			<!--<input name="codigo" placeholder="Ingrese código TP" required="" /> <br />
-			<input name="titulo" placeholder="Título TP" required="" /> <br />
-			<textarea name="consigna" placeholder="Consigna" required=""></textarea> <br />
-			<input name="fechaInicio" placeholder="Fecha de activación" type="date" required="" /> <br />
-			<input name="fechaFin" placeholder="Fecha de desactivación" type="date" />-->
 			<br /> <br />
 			<a href="./principal">Cancelar</a>
 			<input type="submit" value="Agregar" />
 		</form>
-		{% endif %}
-		{% if formAlumno %}
-		<form action="../agregarAlumno" method="post">
+	</article>
+	<article>
+		<form action="" method="post">
+			{% csrf_token %}
+			{{ valCtrlForm }}
+		</form>
+	</article>
+{% if formValCtrl %}
+	<article>
+		<form action="#" method="post">
+			{% csrf_token %}
+			{{ formValCtrl }}
+			<br /> <br />
+			<a href="./principal">Cancelar</a>
+			<input type="submit" value="Agregar" />
+		</form>
+	</article>
+</section>
+{% endif %}
+{% endif %}
+{% if formAlumno %}
+<section>
+	<article>
+		<form action="../tps/agregarAlumno" method="post">
 			{% csrf_token %}
 			{{ formAlumno }}
 			<br /> <br />
 			<a href="./principal">Cancelar</a>
 			<input type="submit" value="Agregar" />
 		</form>
-		{% endif %}
 	</article>
-<!--</section>-->
+</section>
+{% endif %}
 {% endblock %}

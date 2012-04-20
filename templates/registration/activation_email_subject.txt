@@ -1,0 +1,1 @@
+Confirmar registro de cuenta en {{ site.name }}

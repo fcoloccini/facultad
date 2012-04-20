@@ -1,0 +1,10 @@
+{% extends "registration/registration_base.html" %}
+{% block title %}{% if account %}Activación completa{% else %}Problema en la activación{% endif %}{% endblock %}
+{% block content %}
+{% if account %}
+Gracias {{ account }}, activación completa!  Ahora debería <a href='{% url auth_login %}'>ingresar</a> usando su username y password seleccionados al registrarse.
+{% else %}
+Oops &ndash; aparentemente su clave de activación es inválida. Por favor revice la url nuevamente.
+{% endif %}
+{% endblock %}
+

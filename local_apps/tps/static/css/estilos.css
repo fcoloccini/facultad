@@ -23,7 +23,9 @@ section
 }
 article
 {
-	background: #1A9DE0;
+	/*background: #1A9DE0;
+	background: #447766;*/
+	background: #559999;
 	border-radius: 0.5em;
 	display: inline-block;
 	margin: 0 2%;
@@ -63,34 +65,76 @@ form {
 	min-width: 210px;
 	padding: 5px 10px 5px 10px;
 }
-input
+input,
+select,
+textarea
 {
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 	border: 1px solid #cccccc;
 	border-radius: 3px;
 	color: #555555;
-	cursor: pointer;
+	/*cursor: pointer;*/
 	display: inline-block;
 	font-size: 13px;
 	height: 25px;
 	line-height: 18px;
 	margin-bottom: 9px;
 	padding: 4px;
-	transition: border linear 0.2s, box-shadow linear 0.2s;
 	width: 210px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 }
-input:focus
-{
+input,
+textarea {
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-o-transition: border linear 0.2s, box-shadow linear 0.2s;
+	transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+textarea {
+	height: auto;
+}
+input:focus,
+textarea:focus {
 	border-color: rgba(82, 168, 236, 0.8);
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 	outline: 0;
-	/*outline: thin dotted \9;*/
+	outline: thin dotted \9;
+	/* IE6-9 */
+ 
 }
-input[type=text], textarea {
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus,
+select:focus {
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	outline: thin dotted #333;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+input[type=text],
+select,
+textarea {
+	background-color: #FFFFFF;
 	display: block;
-	cursor: text;
+	/*cursor: text;*/
+}
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+  background-color: #eeeeee;
+  border-color: #ddd;
+  cursor: not-allowed;
 }
 #primer-parrafo
 {
@@ -159,61 +203,25 @@ input[type=text], textarea {
 	-o-transition:transform 0.5s ease 0s;
 	transition:transform 0.5s ease 0s;
 }
-.helptext
-{
+ul.errorlist + input,
+ul.errorlist + textarea {
+	background-color: #FFFF73;
+}
+.helpText {
+	background-color: #FFFF73;
+	border-radius: 5px;
 	display: none;
+	margin-left: 3px;
+	max-width: 230px;
+	opacity: 0.9;
+	padding: 5px;
+	position: absolute;
+	z-index: 100;
+	resize: both;
 }
-span:hover .helptext
-{
-	display: block;
-}
-.login {
-	background-color: DarkSlateGrey;
-	background-image:-moz-linear-gradient(#557788, rgba(0, 0, 0, 0.65));
-	background-image:-webkit-linear-gradient(#557788, rgba(0, 0, 0, 0.65));
-	background-image:linear-gradient(#557788, rgba(0, 0, 0, 0.65));
-	-moz-box-sizing:border-box;
-	-webkit-box-sizing:border-box;
-	-ms-box-sizing:border-box;
-	box-sizing:border-box;
-    border-radius: 10px;
-	/*box-shadow*/
-	-webkit-box-shadow:0 0.2em 2em -0.2em black;
-	-moz-box-shadow:0 0.2em 2em -0.2em black;
-	-ms-box-shadow:0 0.2em 2em -0.2em black;
-	box-shadow:0 0.2em 2em -0.2em black;
-	color: #AABABA;
-    height: 250px;
-    margin: auto;
-    padding:1px;
-    vertical-align: middle;
-    width: 500px;
-}
-.login form {
-	background-color: transparent;
-	height: 70px;
-	margin: auto;
-	position: relative;
-	top: 7%;
-	width: 424px;
-}
-.login form input[type=submit],
-.login form input[type=reset]{
-	height: 35px;
-}
-.login form input[type=reset]{
-	background-color: transparent;
-	margin-right: 80px;
-	width: 130px;
-}
-.login input[type=text],
-.login input[type=password] {
-	display: list-item;
-	font-size: 18px;
-	height: 30px;
-	margin: 10px auto;
-	padding: 2px 8px;
-	width: 245px;
+.helpIcon:hover + .helpText,
+.helpText:hover {
+	display: inline;
 }
 .naranja {
 	color: orange;
