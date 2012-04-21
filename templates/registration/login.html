@@ -5,7 +5,7 @@
 
 {% block title %}Login{% endblock %}
 {% block content %}
-<a href="/facultad/accounts/login/"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
+<img id="logo-fceia" src="/static/images/FCEIA-logo.png" />
 {% if form.errors %}
 <p>El usuario y clave no coinciden. Por favor intentá de nuevo.</p>
 {% endif %}
@@ -13,7 +13,7 @@
 	<h1>Ingresa tus datos</h1>
 	<form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
 		<!--{{ form.username.label_tag }}-->
-		<label for="id_username" class="helpIcon">N&uacute;mero de Legajo</label>
+		<label for="id_username" class="helpIcon" autofocus="autofocus">N&uacute;mero de Legajo</label>
 		<span class="helpText">S&oacute;lo letra y n&uacute;meros, sin guion ni barra</span>
 		{{ form.username }}
 		{{ form.password.label_tag }} {{ form.password }}
@@ -21,8 +21,10 @@
 		
 		<input type="reset" value="Cancelar" tabindex="4" />
 		<input type="submit" value="Ingresar" />
-		<input type="hidden" name="next" value="{{ next }}" />
+		<!--<input type="hidden" name="next" value="{{ next }}" /> -->
+		<input type="hidden" name="next" value="/facultad/tps/principal" />
 		<p>¿<a href="{% url auth_password_reset %}">Olvidaste</a> tu clave?  ¿<a href="{% url registration_register %}">Necesitas registrarte</a>?</p>
 	</form>
 </div>
+<p>Site: {{ site }}</p>
 {% endblock %}

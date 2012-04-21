@@ -3,14 +3,16 @@ from django.template import Context, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from django.contrib.auth.decorators import login_required
 import re
 
 def login(request):
-    return render_to_response('tps/login.html',
+    return render_to_response('registration/login.html',
                                context_instance=RequestContext(request))
 
+@login_required
 def index(request):
-    listaAlumnos = Alumno.objects.all().order_by('-nombre')[:5]
+    listaAlumnos = Alumno.objects.all().order_by('-first_name')[:5]
     listaTPs = TrabajoPractico.objects.all().order_by('-codigo')[:5]
     t = loader.get_template('tps/index.html')
     c = Context ({
@@ -26,6 +28,7 @@ def error(request):
     })
     return HttpResponse(t.render(c))
 
+@login_required
 def trabajosPracticos(request, tp_codigo):
     try:
         tp = TrabajoPractico.objects.get(codigo=tp_codigo)
@@ -43,6 +46,7 @@ def trabajosPracticos(request, tp_codigo):
                                'valCtrlForm': valCtrlForm,},
                               context_instance=RequestContext(request))
 
+@login_required
 def alumnos(request, legajo_id):
     try:
         alumno = Alumno.objects.get(nroLegajo=legajo_id)
@@ -57,6 +61,7 @@ def alumnos(request, legajo_id):
                                'cantTPAsignados':alumno.tpsAsignados.count},
                                context_instance=RequestContext(request))
 
+@login_required
 def asignarTP(request, legajo_id):
     alumno = Alumno.objects.get(nroLegajo=legajo_id)
     nroLegajoAsignacion = re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.nroLegajo)
@@ -76,6 +81,7 @@ def asignarTP(request, legajo_id):
         return HttpResponseRedirect('/facultad/tps/principal')
     return HttpResponseRedirect('/facultad/tps/alumno/'+alumno.nroLegajo)
     
+@login_required
 def agregarTP(request):
     if request.method == 'POST':
         form = TPForm(request.POST)
@@ -88,6 +94,7 @@ def agregarTP(request):
                               {'formTP': form,},
                               context_instance=RequestContext(request))
 
+@login_required
 def agregarValorCtrl(request, tp_codigo):
     if request.method == 'POST':
         form = ValorControlForm(request.POST)
@@ -100,6 +107,7 @@ def agregarValorCtrl(request, tp_codigo):
                               {'formValCtrl': form,},
                               context_instance=RequestContext(request))
 
+@login_required
 def agregarAlumno(request):
     if request.method == 'POST':
         nroLegajoStr = formatLegajoToString(request.POST['nroLegajo'])

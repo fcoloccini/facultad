@@ -14,17 +14,18 @@
 		{% if listaAlumnos %}
 		<ul>
 			{% for alumno in listaAlumnos %}
-			<li><a href="./alumno/{{ alumno.nroLegajo }}">Legajo: {{ alumno.nroLegajo }}</a>
+			<li><a href="/facultad/tps/alumno/{{ alumno.nroLegajo }}">Legajo: {{ alumno.nroLegajo }}</a>
 				<ul>
-					<li>Nombre: {{ alumno.nombre }}</li>
-					<li>Apellido: {{ alumno.apellido }}</li>
-					<li>Direcci&oacute;n: {{ alumno.direccion }}</li>
+					<li>Usuario: {{ alumno.username}}</li>
+					<li>Nombre: {{ alumno.first_name }}</li>
+					<li>Apellido: {{ alumno.last_name }}</li>
+					<!--<li>Direcci&oacute;n: {{ alumno.direccion }}</li>
 					<li>Tel&eacute;fono: {{ alumno.telefono }}</li>
 					<li>Pa&iacute;s: {{ alumno.pais }}</li>
-					<li>Provincia: {{ alumno.provincia }}</li>
+					<li>Provincia: {{ alumno.provincia }}</li>-->
 					<li>Email: {{ alumno.email }}</li>
-					<li>Fecha alta: {{ alumno.fechaAlta }}</li>
-					<li>Fecha baja: {{ alumno.fechaBaja }}</li>
+					<!--<li>Fecha alta: {{ alumno.fechaAlta }}</li>
+					<li>Fecha baja: {{ alumno.fechaBaja }}</li>-->
 				</ul>
 			</li>
 			{% endfor %}
@@ -42,7 +43,7 @@
 		{% if listaTPs %}
 		<ul>
 			{% for tp in listaTPs %}
-			<li><a href="./{{ tp.codigo }}">C&oacute;digo: {{ tp.codigo }}</a>
+			<li><a href="/facultad/tps/{{ tp.codigo }}">C&oacute;digo: {{ tp.codigo }}</a>
 				<ul>
 					<li>T&iacute;tulo: {{ tp.titulo }}</li>
 					<li>Consigna: {{ tp.consigna }}</li>
@@ -63,7 +64,7 @@
 	</article>
 </section>
 <section style="text-align: right; background: transparent">
-	<input type="button" onclick="location.href='./agregarAlumno'" value="A&ntilde;adir un alumno" />
-	<input type="button" onclick="location.href='./agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
+	<input type="button" onclick="location.href='/facultad/tps/agregarAlumno'" value="A&ntilde;adir un alumno" />
+	<input type="button" onclick="location.href='/facultad/tps/agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
 </section>
 {% endblock %}
