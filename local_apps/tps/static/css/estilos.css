@@ -5,7 +5,15 @@ body
 	color: #333333;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 16px; /*declarando el font-size global, es muy importante hacerlo porque todos los tamaños relativos dependen de este.*/
+	height: 90%;
 	line-height: 20px;
+}
+footer {
+	bottom: 0;
+	height: 25px;
+	margin-left: 3%;
+	position: absolute;
+	width: 90%;
 }
 h1
 {

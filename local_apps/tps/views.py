@@ -1,4 +1,5 @@
-from local_apps.tps.models import TPForm, TrabajoPractico, AlumnoForm, ValorControl, ValorControlForm
+from local_apps.tps.models import TPForm, TrabajoPractico, AlumnoForm, ValorControl, ValorControlForm,\
+    validar_legajo
 from django.template import Context, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
@@ -6,6 +7,7 @@ from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import re
+from django.db.models.aggregates import Count
 
 def login(request):
     return render_to_response('registration/login.html',
@@ -14,11 +16,12 @@ def login(request):
 @login_required
 def index(request):
     listaAlumnos = User.objects.filter(groups__name__contains='alumnos', is_active='True').order_by('-first_name')[:5]
-    listaTPs = TrabajoPractico.objects.all().order_by('codigo', 'tema')[:5]
+    listaTPs = TrabajoPractico.objects.all().order_by('codigo', 'tema').annotate(dcount=Count('codigo'))
     t = loader.get_template('tps/index.html')
     c = Context ({
                   'listaAlumnos':listaAlumnos,
                   'listaTPs':listaTPs,
+                  'result': validar_legajo('E-1009/0'),
     })
     return HttpResponse(t.render(c))
 
@@ -90,7 +93,11 @@ def asignarTP(request, legajo_id):
 @login_required
 def agregarTP(request):
     if request.method == 'POST':
-        form = TPForm(request.POST)
+        try:
+            tp = TrabajoPractico.objects.get(codigo = request.POST['codigo'], tema=request.POST['tema'])
+        except TrabajoPractico.DoesNotExist:
+            tp = TrabajoPractico()
+        form = TPForm(request.POST, instance=tp)
         if form.is_valid():
             form.save(commit=True)
             return HttpResponseRedirect('/facultad/tps/principal')
@@ -104,6 +111,7 @@ def agregarTP(request):
 def agregarValorCtrl(request, tp_codigo, tp_tema):
     if request.method == 'POST':
         form = ValorControlForm(request.POST)
+        tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/facultad/tps/'+{{ tp_codigo }}+'_'+{{ tp_tema }})
@@ -133,9 +141,6 @@ def agregarAlumno(request):
     return render_to_response('tps/forms.html',
                               {'formAlumno': form,},
                               context_instance=RequestContext(request))
-
-def validarLegajo(legajo_id):
-    return False
 
 def formatLegajoToString(legajo_id):
     legajo_id_str = re.sub('-|\/','',legajo_id)

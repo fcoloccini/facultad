@@ -2,7 +2,9 @@
 from django.db import models
 from django.forms.models import ModelForm
 from django.forms.widgets import TextInput, Textarea
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+import re
 
 # Modelos #
 class TrabajoPractico (models.Model):
@@ -11,7 +13,7 @@ class TrabajoPractico (models.Model):
     tema = models.CharField(max_length=5)
     consigna = models.TextField()
     nrosLegajosAsignados = models.CommaSeparatedIntegerField('Nros Legajos Asignados', max_length=19)
-    fechaInicio = models.DateField('Desde cuándo se activa')
+    fechaInicio = models.DateField('Desde cuándo se activa', null=True, blank=True)
     fechaFin = models.DateField('Último día en que está activo', null=True, blank=True)
     class Meta:
         unique_together = ("codigo", "tema")
@@ -24,12 +26,6 @@ class ValorControl (models.Model):
     valor = models.FloatField()
     unidad = models.CharField(max_length=10)
     ayuda = models.TextField('Forma de cálculo')
-    
-#class Alumno (User):
-#    nroLegajo = models.CharField('Número de Legajo', max_length=10, unique=True)
-#    telefono = models.CharField('Teléfono', max_length=30, null=True, blank=True)
-#    tpsAsignados = models.ManyToManyField(TrabajoPractico, blank=True, related_name='tpsAsignados')
-#    tpsValidados = models.ManyToManyField(TrabajoPractico, blank=True, related_name='tpsValidados')
 
 # Forms #
 class TPForm (ModelForm):
@@ -56,3 +52,19 @@ class AlumnoForm (ModelForm):
         #           'date_joined': TextInput(attrs={'readonly':'True'}),
         #}
         #fields = ['nroLegajo','nombre','apellido','direccion','telefono','pais','provincia','email',]
+        
+# Validators
+def validar_legajo(legajo):
+    splitLeg = re.findall('\d', legajo)
+    calculo = (int(splitLeg[3])*2 + int(splitLeg[2])*3 + int(splitLeg[1])*4 + int(splitLeg[0])*5) * 10
+    residuo = calculo % 11
+    nroControl = int(splitLeg[4])
+    
+    if residuo in range(1, 9) and residuo == nroControl:
+        return True
+    if residuo == 0 and nroControl == 1:
+        return True
+    if residuo == 10 and (nroControl == 0 or nroControl == 1):
+        return True
+    
+    raise ValidationError(u'%s no es un legajo válido' % legajo)

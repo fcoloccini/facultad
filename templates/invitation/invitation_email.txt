@@ -1,0 +1,9 @@
+Lo/a invitaron a registrar una cuenta en {{ site.name }}.
+Si no quiere registrarse, no se preocupe e ignore este correo y su dirección será eliminada de nuestros registros.
+
+Para activar su cuenta, por favor presione el siguiente enlace dentro de los siguientes {{ expiration_days }} días:
+
+http://{{site.domain}}:8080/accounts/invited/{{ invitation_key }}
+
+Saludos cordiales,
+la administración de {{ site.name }}

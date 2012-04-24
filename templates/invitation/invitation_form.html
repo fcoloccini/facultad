@@ -1,0 +1,18 @@
+{% extends "tps/base.html" %}
+
+{% block title %}Enviar invitaci&oacute;n de registro{% endblock %}
+
+{% block content %}
+<section>
+	<h3 style="margin-left: 25px">Invitar a un profesor a crear una cuenta</h3>
+	<article>
+		<form method="post" action="">
+			{% csrf_token %}
+			{{ form }}
+			<input type="submit" value="Enviar invitaci&oacute;n" />
+		</form>
+		<a href="/facultad/tps/principal">Volver</a>
+	</article>
+</section>
+
+{% endblock %}

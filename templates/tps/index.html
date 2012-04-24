@@ -16,6 +16,8 @@
 			{% for alumno in listaAlumnos %}
 			<li><a href="/facultad/tps/alumno/{{ alumno.username }}">Legajo: {{ alumno.username }}</a>
 				<ul>
+					<li>Result:{{ result }}
+					</li>
 					<li>Usuario: {{ alumno.username}}</li>
 					<li>Nombre: {{ alumno.first_name }}</li>
 					<li>Apellido: {{ alumno.last_name }}</li>
@@ -71,9 +73,10 @@
 	</article>
 </section>
 <section style="text-align: right; background: transparent">
-	<input type="button" onclick="location.href='/facultad/tps/agregarAlumno'" value="A&ntilde;adir un alumno" />
+	<!--<input type="button" onclick="location.href='/facultad/tps/agregarAlumno'" value="A&ntilde;adir un alumno" />-->
 	<input type="button" onclick="location.href='/facultad/tps/agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
-	<br />
-	<a href="/accounts/password/change">Cambiar clave</a> - <a href="/accounts/logout">logout</a>
 </section>
+<footer>
+	[<a href="/accounts/invite">Invitar a un profesor</a>] - [<a href="/accounts/password/change">Cambiar mi clave</a>] - [<a href="/accounts/logout">Salir</a>]
+</footer>
 {% endblock %}

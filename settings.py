@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 # Django settings for facultad project.
 
 import os.path
@@ -25,8 +26,18 @@ DATABASES = {
     }
 }
 
+# Dias que dura una solicitud de registro
 ACCOUNT_ACTIVATION_DAYS = 2
 
+# Dias que dura una invitacion de registro
+ACCOUNT_INVITATION_DAYS = 2
+
+INVITE_MODE = True
+
+# Cantidad máxima de invitaciones pendientes para un usuario
+INVITATIONS_PER_USER = 2
+
+# parametros para enviar email de registro
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'franco@coloccini.com.ar'
@@ -136,6 +147,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'local_apps.tps',
     'registration',
+    'invitation',
 )
 
 # A sample logging configuration. The only tangible logging

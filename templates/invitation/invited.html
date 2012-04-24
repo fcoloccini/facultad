@@ -1,0 +1,17 @@
+{% extends "tps/base.html" %}
+
+{% block title %}Registrar nueva cuenta de profesor{% endblock %}
+
+{% block content %}
+<section>
+	<h3 style="margin-left: 25px">¡Bienvenido!<br />Puede completar sus datos para crear su cuenta</h3>
+	<article>
+		<form method="post" action="">
+			{% csrf_token %}
+			{{ form }}
+			<input type="submit" value="Crear cuenta" />
+		</form>
+	</article>
+</section>
+
+{% endblock %}
