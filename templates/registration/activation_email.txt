@@ -3,7 +3,7 @@ Usted (o alguien que dijo serlo) requirió registrar una cuenta en
 correo y su dirección será eliminada de nuestros registros.
 
 Para activar esta cuenta, por favor presione el siguiente enlace 
-dontro de los siguientes {{ expiration_days }} días:
+dentro de los siguientes {{ expiration_days }} días:
 
 http://{{site.domain}}/accounts/activate/{{ activation_key }}
 

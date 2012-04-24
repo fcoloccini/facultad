@@ -19,12 +19,11 @@
 		{{ form.password.label_tag }} {{ form.password }}
 		<br />
 		
-		<input type="reset" value="Cancelar" tabindex="4" />
+		<input type="reset" value="Cancelar" />
 		<input type="submit" value="Ingresar" />
 		<!--<input type="hidden" name="next" value="{{ next }}" /> -->
 		<input type="hidden" name="next" value="/facultad/tps/principal" />
-		<p>¿<a href="{% url auth_password_reset %}">Olvidaste</a> tu clave?  ¿<a href="{% url registration_register %}">Necesitas registrarte</a>?</p>
+		<p>¿<a href="{% url auth_password_reset %}">Olvidaste</a> tu clave?  ¿Necesitas <a href="{% url registration_register %}">registrarte</a>?</p>
 	</form>
 </div>
-<p>Site: {{ site }}</p>
 {% endblock %}

@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block content%}
-	<a href="/facultad/tps/"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
+	<a href="/facultad/tps/principal"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
 <section>
 	<article>
 		<p><strong>Lista de Alumnos:</strong></p>
 		{% if listaAlumnos %}
 		<ul>
 			{% for alumno in listaAlumnos %}
-			<li><a href="/facultad/tps/alumno/{{ alumno.nroLegajo }}">Legajo: {{ alumno.nroLegajo }}</a>
+			<li><a href="/facultad/tps/alumno/{{ alumno.username }}">Legajo: {{ alumno.username }}</a>
 				<ul>
 					<li>Usuario: {{ alumno.username}}</li>
 					<li>Nombre: {{ alumno.first_name }}</li>
@@ -26,6 +26,13 @@
 					<li>Email: {{ alumno.email }}</li>
 					<!--<li>Fecha alta: {{ alumno.fechaAlta }}</li>
 					<li>Fecha baja: {{ alumno.fechaBaja }}</li>-->
+					<li>Grupos:
+						<ul>
+							{% for grupo in alumno.groups.all %}
+							<li>{{ grupo.name }}</li>
+							{% endfor %}
+						</ul>
+					</li>
 				</ul>
 			</li>
 			{% endfor %}
@@ -43,7 +50,7 @@
 		{% if listaTPs %}
 		<ul>
 			{% for tp in listaTPs %}
-			<li><a href="/facultad/tps/{{ tp.codigo }}">C&oacute;digo: {{ tp.codigo }}</a>
+			<li><a href="/facultad/tps/{{ tp.codigo }}_{{ tp.tema }}">C&oacute;digo: {{ tp.codigo }} {{ tp.tema }}</a>
 				<ul>
 					<li>T&iacute;tulo: {{ tp.titulo }}</li>
 					<li>Consigna: {{ tp.consigna }}</li>
@@ -66,5 +73,7 @@
 <section style="text-align: right; background: transparent">
 	<input type="button" onclick="location.href='/facultad/tps/agregarAlumno'" value="A&ntilde;adir un alumno" />
 	<input type="button" onclick="location.href='/facultad/tps/agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
+	<br />
+	<a href="/accounts/password/change">Cambiar clave</a> - <a href="/accounts/logout">logout</a>
 </section>
 {% endblock %}

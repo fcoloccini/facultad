@@ -1,10 +1,17 @@
 {% extends "registration/registration_base.html" %}
-{% block title %}Registro para una cuenta{% endblock %}
+{% block title %}Registro para una cuenta nueva{% endblock %}
 {% block content %}
-<table>
-    <form method='post' action=''>{% csrf_token %}
-        {{ form }}
-        <tr><td></td><td><input type="submit" value="Enviar email de activaci&oacute;n" /></td>
-    </form>
-</table>
+<section>
+	<h3 style="margin-left: 25px">Registrar una cuenta nueva</h3>
+	<article>
+		<form method='post' action=''>
+			<table>
+				{% csrf_token %}
+				{{ form }}
+				<tr><td></td><td><input type="submit" value="Enviar email de activaci&oacute;n" /></td>
+			</table>
+		</form>
+		<a href="/accounts/login">Volver</a> al Inicio
+	</article>
+</section>
 {% endblock %}

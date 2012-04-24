@@ -1,9 +1,10 @@
-from local_apps.tps.models import Alumno, TPForm, TrabajoPractico, AlumnoForm, ValorControl, ValorControlForm
+from local_apps.tps.models import TPForm, TrabajoPractico, AlumnoForm, ValorControl, ValorControlForm
 from django.template import Context, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 import re
 
 def login(request):
@@ -12,8 +13,8 @@ def login(request):
 
 @login_required
 def index(request):
-    listaAlumnos = Alumno.objects.all().order_by('-first_name')[:5]
-    listaTPs = TrabajoPractico.objects.all().order_by('-codigo')[:5]
+    listaAlumnos = User.objects.filter(groups__name__contains='alumnos', is_active='True').order_by('-first_name')[:5]
+    listaTPs = TrabajoPractico.objects.all().order_by('codigo', 'tema')[:5]
     t = loader.get_template('tps/index.html')
     c = Context ({
                   'listaAlumnos':listaAlumnos,
@@ -29,41 +30,46 @@ def error(request):
     return HttpResponse(t.render(c))
 
 @login_required
-def trabajosPracticos(request, tp_codigo):
+def trabajosPracticos(request, tp_codigo, tp_tema):
     try:
-        tp = TrabajoPractico.objects.get(codigo=tp_codigo)
+        tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
         form = TPForm(instance=tp)
         form.fields['codigo'].widget.attrs['readonly'] = 'True'
+        form.fields['tema'].widget.attrs['readonly'] = 'True'
     except TrabajoPractico.DoesNotExist:
         raise Http404
     try:
-        valCtrl = ValorControl.objects.get(trabajoPractico=tp_codigo)
-        valCtrlForm = ValorControlForm(instance=valCtrl)
+        valoresCtrl = ValorControl.objects.get(trabajoPractico=tp)
+        #valCtrlForm = ValorControlForm(instance=valCtrl)
     except ValorControl.DoesNotExist:
-        valCtrlForm = ValorControlForm(instance=ValorControl())
+        #valCtrlForm = ValorControlForm(instance=ValorControl())
+        valoresCtrl = [ValorControl(),]
     return render_to_response('tps/forms.html',
                               {'formTP': form,
-                               'valCtrlForm': valCtrlForm,},
+                               'codigoTP': str(tp.codigo) + '_' + tp.tema,
+                               #'valCtrlForm': valCtrlForm,
+                               'valCtrl': valoresCtrl,},
                               context_instance=RequestContext(request))
 
 @login_required
 def alumnos(request, legajo_id):
     try:
-        alumno = Alumno.objects.get(nroLegajo=legajo_id)
+        alumno = User.objects.get(username=legajo_id)
         form = AlumnoForm(instance=alumno)
-        form.fields['nroLegajo'].widget.attrs['readonly'] = 'True'
-    except Alumno.DoesNotExist:
+        form.fields['username'].widget.attrs['readonly'] = 'True'
+    except User.DoesNotExist:
         raise Http404
     return render_to_response('tps/alumnos.html',
                               {'alumno': alumno,
                                'formAlumno': form,
-                               'nroLegajoAsignacion': re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.nroLegajo),
-                               'cantTPAsignados':alumno.tpsAsignados.count},
+                               'nroLegajoAsignacion': re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.username),
+                               #'cantTPAsignados':alumno.tpsAsignados.count
+                               },
                                context_instance=RequestContext(request))
 
 @login_required
 def asignarTP(request, legajo_id):
-    alumno = Alumno.objects.get(nroLegajo=legajo_id)
+    alumno = User.objects.get(username=legajo_id)
     nroLegajoAsignacion = re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.nroLegajo)
     if alumno.tpsAsignados.count < '1':
         #tp = TrabajoPractico.objects.filter(nrosLegajosAsignados__contains=nroLegajoAsignacion)
@@ -95,12 +101,12 @@ def agregarTP(request):
                               context_instance=RequestContext(request))
 
 @login_required
-def agregarValorCtrl(request, tp_codigo):
+def agregarValorCtrl(request, tp_codigo, tp_tema):
     if request.method == 'POST':
         form = ValorControlForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/facultad/tps/'+{{ tp_codigo }})
+            return HttpResponseRedirect('/facultad/tps/'+{{ tp_codigo }}+'_'+{{ tp_tema }})
     else:
         form = ValorControlForm()
     return render_to_response('tps/forms.html',
@@ -110,13 +116,13 @@ def agregarValorCtrl(request, tp_codigo):
 @login_required
 def agregarAlumno(request):
     if request.method == 'POST':
-        nroLegajoStr = formatLegajoToString(request.POST['nroLegajo'])
-        request.POST['nroLegajo'] = nroLegajoStr
+        #nroLegajoStr = formatLegajoToString(request.POST['nroLegajo'])
+        #request.POST['nroLegajo'] = nroLegajoStr
         try:
-            alumno = Alumno.objects.get(nroLegajo=request.POST['nroLegajo'])
+            alumno = User.objects.get(username=request.POST['username'])
             alumnoInstance = alumno
-        except Alumno.DoesNotExist:
-            alumnoInstance = Alumno()
+        except User.DoesNotExist:
+            alumnoInstance = User()
         
         form = AlumnoForm(request.POST, instance=alumnoInstance)
         if form.is_valid():

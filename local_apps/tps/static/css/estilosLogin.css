@@ -1,3 +1,10 @@
+body img + p {
+	color: #FA1414;
+    display: inline-block;
+    margin-left: 1%;
+    position: fixed;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4);
+}
 .login {
 	background-color: DarkSlateGrey;
 	background-image:-moz-linear-gradient(#557788, rgba(0, 0, 0, 0.65));
@@ -36,6 +43,7 @@
 .login form input[type=reset]{
 	background-color: transparent;
 	margin-right: 80px;
+	max-width: 130px;
 	width: 130px;
 }
 .login input[type=text],

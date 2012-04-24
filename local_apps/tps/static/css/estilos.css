@@ -29,7 +29,7 @@ article
 	border-radius: 0.5em;
 	display: inline-block;
 	margin: 0 2%;
-	min-height: 350px;
+/*	min-height: 350px;*/
 	min-width: 230px;
 	padding: 0.5em;
 	text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
@@ -125,6 +125,10 @@ textarea {
 	background-color: #FFFFFF;
 	display: block;
 	/*cursor: text;*/
+}
+input[type=reset] {
+	background-color: transparent;
+	max-width: 45px;
 }
 input[disabled],
 select[disabled],

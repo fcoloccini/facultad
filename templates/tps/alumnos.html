@@ -1,9 +1,7 @@
 {% extends "tps/base.html" %}
 
-{% block body %}
-	{% if alumno%}
-	<section>
-		{% if alumno.tpsAsignados.count > 0 %}
+{% block content %}
+		<!--{% if alumno.tpsAsignados.count > 0 %}
 		<article>
 			{% for tp in alumno.tpsAsignados.all %}
 			<ul>
@@ -26,7 +24,9 @@
 			<p>nroLegajoAsignacion: {{ nroLegajoAsignacion }}</p>
 			<p>cantTPAsignados: {{ cantTPAsignados }}
 		</article>
-		{% endif %}
+		{% endif %}-->
+	{% if alumno%}
+	<section>
 		{% if formAlumno %}
 		<article>
 			<form action="../agregarAlumno" method="post">

@@ -1,13 +1,20 @@
 {% extends "tps/base.html" %}
 
 {% block title %}
-{% if formAlumno %}Gesti&oacute;n de alumnos
-{% endif %}
-{% if formTP %}Gesti&oacute;n de trabajos pr&aacute;cticos
-{% endif %}
+	{% if formAlumno %}Gesti&oacute;n de alumnos
+	{% endif %}
+	{% if formTP %}Gesti&oacute;n de trabajos pr&aacute;cticos
+	{% endif %}
 {% endblock %}
 
 
+{% block subHead %}
+<script type="text/javascript" src="/static/js/sisyphus.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('form').sisyphus({timeout: 5});
+});</script>
+{% endblock %}
 
 {% block content %}
 {% if formTP %}
@@ -17,28 +24,43 @@
 			{% csrf_token %}
 			{{ formTP }}
 			<br /> <br />
-			<a href="./principal">Cancelar</a>
+			<input type="reset" value="Reset" />
 			<input type="submit" value="Agregar" />
 		</form>
+		<a href="/facultad/tps/principal">Volver</a>
 	</article>
 	<article>
-		<form action="" method="post">
-			{% csrf_token %}
-			{{ valCtrlForm }}
-		</form>
+		{% for valCtrl in valoresCtrl %}
+		<ul>
+			<li>
+				Código TP: {{ valCtrl.trabajoPractico.codigo }}{{valCtrl.trabajoPractico.tema}}
+			</li>
+			<li>
+				T&iacute;tulo: {{ valCtrl.titulo }}
+			</li>
+			<li>
+				Valor: {{ valCtrl.valor }} {{ valCtrl.unidad }}
+			</li>
+			<li>
+				Forma de c&aacute;lculo: {{ valCtrl.ayuda }}
+			</li>
+		</ul>
+		{% endfor %}
+		<input type="button" onclick="location.href='{{ codigoTP }}/agregarValCtrl'" value="Agregar un valor" />
 	</article>
+{% endif %}
 {% if formValCtrl %}
 	<article>
 		<form action="#" method="post">
 			{% csrf_token %}
 			{{ formValCtrl }}
 			<br /> <br />
-			<a href="./principal">Cancelar</a>
+			<input type="reset" value="Reset" />
 			<input type="submit" value="Agregar" />
 		</form>
+		<a href="./principal">Volver</a>
 	</article>
 </section>
-{% endif %}
 {% endif %}
 {% if formAlumno %}
 <section>
@@ -47,9 +69,10 @@
 			{% csrf_token %}
 			{{ formAlumno }}
 			<br /> <br />
-			<a href="./principal">Cancelar</a>
+			<input type="reset" value="Reset" />
 			<input type="submit" value="Agregar" />
 		</form>
+			<a href="./principal">Volver</a>
 	</article>
 </section>
 {% endif %}
