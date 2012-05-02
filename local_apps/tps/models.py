@@ -5,6 +5,7 @@ from django.forms.widgets import TextInput, Textarea
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import re
+from django import forms
 
 # Modelos #
 class TrabajoPractico (models.Model):
@@ -35,12 +36,13 @@ class TPForm (ModelForm):
                    'nrosLegajosAsignados':TextInput(attrs={'required':'', 'pattern':'(\d,){0,9}(\d?)$'}),
                    #'codigo':TextInput(attrs={'readonly':'True'}),
                    }
-class ValorControlForm (ModelForm):
-    class Meta:
-        model = ValorControl
-        widgets = {
-                   'ayuda':Textarea(attrs={'placeholder':'Se visualizará como ayuda'}),
-                   }
+class ValorControlForm (forms.Form):
+    #trabajoPractico = forms.Select
+    id = forms.CharField(widget=forms.HiddenInput(), required=False)
+    titulo = forms.CharField(max_length=500)
+    valor = forms.FloatField()
+    unidad = forms.CharField(max_length=10)
+    ayuda = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Se visualizará como ayuda'}), required=False)
     
 class AlumnoForm (ModelForm):
     class Meta:

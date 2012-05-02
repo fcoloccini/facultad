@@ -1,7 +1,7 @@
 from local_apps.tps.models import TPForm, TrabajoPractico, AlumnoForm, ValorControl, ValorControlForm,\
     validar_legajo
 from django.template import Context, loader
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -17,6 +17,8 @@ from django.conf import settings
 
 @login_required
 def index(request):
+    if not request.user.has_perm('auth.change_user'):
+        return HttpResponseForbidden()
     listaAlumnos = User.objects.filter(groups__name__contains='alumnos', is_active='True').order_by('-first_name')[:5]
     listaTPs = TrabajoPractico.objects.all().order_by('codigo', 'tema').annotate(dcount=Count('codigo'))
     t = loader.get_template('tps/index.html')
