@@ -8,10 +8,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 import re
 from django.db.models.aggregates import Count
+from django.conf import settings
 
-def login(request):
-    return render_to_response('registration/login.html',
-                               context_instance=RequestContext(request))
+#def login(request, next="/facultad/principal"):
+#    return render_to_response('registration/login.html',
+#                              {'next': next},
+#                               context_instance=RequestContext(request))
 
 @login_required
 def index(request):
@@ -42,7 +44,7 @@ def trabajosPracticos(request, tp_codigo, tp_tema):
     except TrabajoPractico.DoesNotExist:
         raise Http404
     try:
-        valoresCtrl = ValorControl.objects.get(trabajoPractico=tp)
+        valoresCtrl = ValorControl.objects.filter(trabajoPractico=tp)
         #valCtrlForm = ValorControlForm(instance=valCtrl)
     except ValorControl.DoesNotExist:
         #valCtrlForm = ValorControlForm(instance=ValorControl())
@@ -51,7 +53,7 @@ def trabajosPracticos(request, tp_codigo, tp_tema):
                               {'formTP': form,
                                'codigoTP': str(tp.codigo) + '_' + tp.tema,
                                #'valCtrlForm': valCtrlForm,
-                               'valCtrl': valoresCtrl,},
+                               'valoresCtrl': valoresCtrl,},
                               context_instance=RequestContext(request))
 
 @login_required
@@ -87,8 +89,8 @@ def asignarTP(request, legajo_id):
                     break
             if jump:
                 break
-        return HttpResponseRedirect('/facultad/tps/principal')
-    return HttpResponseRedirect('/facultad/tps/alumno/'+alumno.nroLegajo)
+        return HttpResponseRedirect(settings.FACULTAD_PRINCIPAL_PAGE)
+    return HttpResponseRedirect('/facultad/alumno/'+alumno.nroLegajo)
     
 @login_required
 def agregarTP(request):
@@ -100,7 +102,7 @@ def agregarTP(request):
         form = TPForm(request.POST, instance=tp)
         if form.is_valid():
             form.save(commit=True)
-            return HttpResponseRedirect('/facultad/tps/principal')
+            return HttpResponseRedirect(settings.FACULTAD_PRINCIPAL_PAGE)
     else:
         form = TPForm()
     return render_to_response('tps/forms.html',
@@ -114,7 +116,7 @@ def agregarValorCtrl(request, tp_codigo, tp_tema):
         tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/facultad/tps/'+{{ tp_codigo }}+'_'+{{ tp_tema }})
+            return HttpResponseRedirect('/facultad/tps/'+tp_codigo+'_'+tp_tema)
     else:
         form = ValorControlForm()
     return render_to_response('tps/forms.html',
@@ -135,7 +137,7 @@ def agregarAlumno(request):
         form = AlumnoForm(request.POST, instance=alumnoInstance)
         if form.is_valid():
             form.save(commit=True)
-            return HttpResponseRedirect('/facultad/tps/principal')
+            return HttpResponseRedirect(settings.FACULTAD_PRINCIPAL_PAGE)
     else:
         form = AlumnoForm()
     return render_to_response('tps/forms.html',

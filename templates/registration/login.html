@@ -21,8 +21,7 @@
 		
 		<input type="reset" value="Cancelar" />
 		<input type="submit" value="Ingresar" />
-		<!--<input type="hidden" name="next" value="{{ next }}" /> -->
-		<input type="hidden" name="next" value="/facultad/tps/principal" />
+		<input type="hidden" name="next" value="{{ next }}" />
 		<p>¿<a href="{% url auth_password_reset %}">Olvidaste</a> tu clave?  ¿Necesitas <a href="{% url registration_register %}">registrarte</a>?</p>
 	</form>
 </div>

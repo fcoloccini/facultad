@@ -29,13 +29,14 @@
 	<section>
 		{% if formAlumno %}
 		<article>
-			<form action="../agregarAlumno" method="post">
+			<form action="../alumno/agregarAlumno" method="post">
 				{% csrf_token %}
 				{{ formAlumno }}
 				<br /> <br />
-				<a href="/facultad/tps/principal">Cancelar</a>
+				<input type="reset" value="Reset" />
 				<input type="submit" value="Modificar" />
 			</form>
+			<a href="/facultad/principal">Volver</a>
 		</article>
 		{% endif %}
 	</section>

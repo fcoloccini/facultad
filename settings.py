@@ -26,6 +26,12 @@ DATABASES = {
     }
 }
 
+# Pagina principal
+FACULTAD_PRINCIPAL_PAGE = '/facultad/principal'
+
+# Redirect por defecto (parametro 'next' en la url)
+LOGIN_REDIRECT_URL = FACULTAD_PRINCIPAL_PAGE
+
 # Dias que dura una solicitud de registro
 ACCOUNT_ACTIVATION_DAYS = 2
 

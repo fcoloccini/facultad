@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block content%}
-	<a href="/facultad/tps/principal"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
+	<a href="/facultad/principal"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
 <section>
 	<article>
 		<p><strong>Lista de Alumnos:</strong></p>
 		{% if listaAlumnos %}
 		<ul>
 			{% for alumno in listaAlumnos %}
-			<li><a href="/facultad/tps/alumno/{{ alumno.username }}">Legajo: {{ alumno.username }}</a>
+			<li><a href="/facultad/alumno/{{ alumno.username }}">Legajo: {{ alumno.username }}</a>
 				<ul>
 					<li>Result:{{ result }}
 					</li>

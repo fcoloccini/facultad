@@ -27,45 +27,48 @@ $(function(){
 			<input type="reset" value="Reset" />
 			<input type="submit" value="Agregar" />
 		</form>
-		<a href="/facultad/tps/principal">Volver</a>
+		<a href="/facultad/principal">Volver</a>
 	</article>
 	<article>
+		<b>Valores de Control:</b>
 		{% for valCtrl in valoresCtrl %}
 		<ul>
-			<li>
+			<!--<li>
 				Código TP: {{ valCtrl.trabajoPractico.codigo }}{{valCtrl.trabajoPractico.tema}}
-			</li>
+			</li>-->
 			<li>
-				T&iacute;tulo: {{ valCtrl.titulo }}
+				<!--T&iacute;tulo: -->{{ valCtrl.titulo }}
 			</li>
-			<li>
-				Valor: {{ valCtrl.valor }} {{ valCtrl.unidad }}
-			</li>
-			<li>
-				Forma de c&aacute;lculo: {{ valCtrl.ayuda }}
-			</li>
+			<ul>
+				<li>
+					Valor: {{ valCtrl.valor }} {{ valCtrl.unidad }}
+				</li>
+				<li>
+					Forma de c&aacute;lculo: {{ valCtrl.ayuda }}
+				</li>
+			</ul>
 		</ul>
 		{% endfor %}
-		<input type="button" onclick="location.href='{{ codigoTP }}/agregarValCtrl'" value="Agregar un valor" />
+		<input type="button" onclick="location.href='../{{ codigoTP }}/agregarValCtrl'" value="Agregar un valor" />
 	</article>
 {% endif %}
 {% if formValCtrl %}
 	<article>
-		<form action="#" method="post">
+		<form action="" method="post">
 			{% csrf_token %}
 			{{ formValCtrl }}
 			<br /> <br />
 			<input type="reset" value="Reset" />
 			<input type="submit" value="Agregar" />
 		</form>
-		<a href="./principal">Volver</a>
+		<a href="./">Volver</a>
 	</article>
 </section>
 {% endif %}
 {% if formAlumno %}
 <section>
 	<article>
-		<form action="../tps/agregarAlumno" method="post">
+		<form action="../alumno/agregarAlumno" method="post">
 			{% csrf_token %}
 			{{ formAlumno }}
 			<br /> <br />
