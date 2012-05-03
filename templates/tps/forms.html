@@ -37,16 +37,17 @@ $(function(){
 				Código TP: {{ valCtrl.trabajoPractico.codigo }}{{valCtrl.trabajoPractico.tema}}
 			</li>-->
 			<li>
-				<!--T&iacute;tulo: -->{{ valCtrl.titulo }}
+				<!--T&iacute;tulo: -->
+				<a href='./valCtrl/{{ valCtrl.id }}'>{{ valCtrl.titulo }}</a>
+				<ul>
+					<li>
+						Valor: {{ valCtrl.valor }} {{ valCtrl.unidad }}
+					</li>
+					<li>
+						Forma de c&aacute;lculo: {{ valCtrl.ayuda }}
+					</li>
+				</ul>
 			</li>
-			<ul>
-				<li>
-					Valor: {{ valCtrl.valor }} {{ valCtrl.unidad }}
-				</li>
-				<li>
-					Forma de c&aacute;lculo: {{ valCtrl.ayuda }}
-				</li>
-			</ul>
 		</ul>
 		{% endfor %}
 		<input type="button" onclick="location.href='../{{ codigoTP }}/agregarValCtrl'" value="Agregar un valor" />

@@ -75,6 +75,18 @@ def alumnos(request, legajo_id):
                                context_instance=RequestContext(request))
 
 @login_required
+def valorControl(request, tp_codigo, tp_tema, id_ValCtrl):
+    try:
+        valCtrl = ValorControl.objects.get(pk=id_ValCtrl)
+        form = ValorControlForm(instance=valCtrl)
+    except ValorControl.DoesNotExist:
+        raise Http404
+    return render_to_response('tps/forms.html',
+                              {'formValCtrl': form,
+                               },
+                              context_instance=RequestContext(request))
+
+@login_required
 def asignarTP(request, legajo_id):
     alumno = User.objects.get(username=legajo_id)
     nroLegajoAsignacion = re.sub('^\w-{0,1}\d{3}|\/{0,1}\d{1}$', '', alumno.nroLegajo)
@@ -115,9 +127,11 @@ def agregarTP(request):
 def agregarValorCtrl(request, tp_codigo, tp_tema):
     if request.method == 'POST':
         form = ValorControlForm(request.POST)
-        tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
         if form.is_valid():
-            form.save()
+            valCtrl = form.save(commit=False)
+            tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
+            valCtrl.trabajoPractico = tp
+            valCtrl.save()
             return HttpResponseRedirect('/facultad/tps/'+tp_codigo+'_'+tp_tema)
     else:
         form = ValorControlForm()
