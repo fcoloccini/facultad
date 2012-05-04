@@ -12,7 +12,7 @@ footer {
 	bottom: 0;
 	height: 25px;
 	margin-left: 3%;
-	position: absolute;
+	position: relative;
 	width: 90%;
 }
 h1
@@ -219,6 +219,9 @@ ul.errorlist + input,
 ul.errorlist + textarea {
 	background-color: #FFFF73;
 }
+.helpIcon {
+	display: inline-block !important;
+}
 .helpText {
 	background-color: #FFFF73;
 	border-radius: 5px;
@@ -232,7 +235,8 @@ ul.errorlist + textarea {
 	resize: both;
 }
 .helpIcon:hover + .helpText,
-.helpText:hover {
+.helpText:hover,
+.helpIcon:focus + .helpText {
 	display: inline;
 }
 .naranja {

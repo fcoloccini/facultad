@@ -1,0 +1,81 @@
+{% extends "tps/base.html" %}
+
+{% block title %}Administraci&oacute;n de alumnos y trabajos pr&aacute;cticos
+{% endblock %}
+
+{% block subHead %}
+{% endblock %}
+
+{% block content%}
+	<a href="/facultad/principal"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
+	<h3 style="text-align: center;">Profesor {{ user.first_name }} {{ user.last_name }}</h3>
+	<!--{% for grupo in grupos %}
+		{{grupo.name}}
+		{% for permiso in grupo.permissions.all %}
+			{{ permiso.codename }}
+		{% endfor %}
+	{% endfor %}-->
+	<section>
+		<article>
+			<p><strong>Lista de Alumnos:</strong></p>
+			{% if listaAlumnos %}
+			<ul>
+				{% for alumno in listaAlumnos %}
+				<li><a href="/facultad/alumno/{{ alumno.username }}">Legajo: {{ alumno.username }}</a>
+					<ul>
+						<li>Usuario: {{ alumno.username}}</li>
+						<li>Nombre: {{ alumno.first_name }}</li>
+						<li>Apellido: {{ alumno.last_name }}</li>
+						<li>Email: {{ alumno.email }}</li>
+						<li>Grupos:
+							<ul>
+								{% for grupo in alumno.groups.all %}
+								<li>{{ grupo.name }}</li>
+								{% endfor %}
+							</ul>
+						</li>
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>
+			{% else %}
+			<ul>
+				<li>
+					No hay alumnos
+				</li>
+			</ul>
+			{% endif %}
+		</article>
+		<article>
+			<p><strong>Lista de trabajos pr&aacute;cticos:</strong></p>
+			{% if listaTPs %}
+			<ul>
+				{% for tp in listaTPs %}
+				<li><a href="/facultad/tps/{{ tp.codigo }}_{{ tp.tema }}">C&oacute;digo: {{ tp.codigo }} {{ tp.tema }}</a>
+					<ul>
+						<li>T&iacute;tulo: {{ tp.titulo }}</li>
+						<li>Consigna: {{ tp.consigna }}</li>
+						<li>Nros legajos asignados: {{ tp.nrosLegajosAsignados }}</li>
+						<li>Fecha inicio: {{ tp.fechaInicio }}</li>
+						<li>Fecha fin: {{ tp.fechaFin }}</li>
+					</ul>
+				</li>
+				{% endfor %}
+			</ul>
+			{% else %}
+			<ul>
+				<li>
+					No hay trabajos pr&aacute;cticos
+				</li>
+			</ul>
+			{% endif %}
+		</article>
+	</section>
+	<section style="text-align: right; background: transparent">
+		<!--<input type="button" onclick="location.href='/facultad/tps/agregarAlumno'" value="A&ntilde;adir un alumno" />-->
+		<input type="button" onclick="location.href='/facultad/tps/agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
+	</section>
+	<footer>
+		[<a href="/accounts/invite">Invitar a un profesor</a>] - [<a href="/accounts/password/change">Cambiar mi clave</a>] - [<a href="/accounts/logout">Salir</a>]
+	</footer>
+{% endblock %}

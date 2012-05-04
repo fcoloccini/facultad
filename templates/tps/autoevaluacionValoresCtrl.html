@@ -1,0 +1,48 @@
+{% extends "tps/base.html" %}
+{% block title %}Autoevaluaci&oacute;n TP {{ tp.codigo }} tema {{ tp.tema }}
+{% endblock %}
+
+{% block subHead %}
+{% endblock %}
+
+{% block content%}
+	<a href="/facultad/principal"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
+	<h3 style="text-align: center;">Alumno {{ user.first_name }} {{ user.last_name }}</h3>
+<section style="width: 70%;">
+	<article style="width: 93%;">
+		<p><strong>Autoevaluaci&oacute;n</strong></p>
+		{% if tp %}
+		<fieldset>
+			<legend>TP {{ tp.codigo }} Tema {{ tp.tema }}</legend>
+			<p>T&iacute;tulo: {{ tp.titulo }}</p>
+			<p>Consigna: {{ tp.consigna }}</p>
+			<form method="post" action="">
+				{% csrf_token %}
+				{% for valCtrl in valoresCtrl %}
+				<label for="{{ valCtrl.id }}">{{ valCtrl.titulo }}</label>
+				<div>
+					<input type="text" name="{{ valCtrl.id }}" id="{{ valCtrl.id }}" class="helpIcon" />
+					{{ valCtrl.unidad }}
+					<span class="helpText">{{ valCtrl.ayuda }}</span>
+				</div>
+				{% endfor %}
+				<br />
+				<input type="submit" value="Validar" />
+			</form>
+			{% else %}
+			<ul>
+				<li>
+					No hay trabajos pr&aacute;cticos
+				</li>
+			</ul>
+		</fieldset>
+		{% endif %}
+	</article>
+</section>
+<section style="text-align: right; background: transparent">
+	<!--<input type="button" onclick="location.href='/facultad/tps/agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />-->
+</section>
+<footer>
+	[<a href="/accounts/password/change">Cambiar mi clave</a>] - [<a href="/accounts/logout">Salir</a>]
+</footer>
+{% endblock %}
