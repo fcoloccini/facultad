@@ -224,15 +224,26 @@ ul.errorlist + textarea {
 }
 .helpText {
 	background-color: #FFFF73;
+	border: 1px solid #D3D3D3;
 	border-radius: 5px;
 	display: none;
-	margin-left: 3px;
+	margin: -8px 0 0 14px;
 	max-width: 230px;
 	opacity: 0.9;
 	padding: 5px;
 	position: absolute;
 	z-index: 100;
 	resize: both;
+}
+.helpText:before {
+	border-bottom: 9px solid transparent;
+    border-right: 12px solid #FFFF73;
+    border-top: 9px solid transparent;
+    content: "";
+    font-size: 0;
+    height: 0;
+    margin: 0 5px 0 -17px;
+    width: 0;
 }
 .helpIcon:hover + .helpText,
 .helpText:hover,

@@ -107,6 +107,16 @@ def valorControl(request, tp_codigo, tp_tema, id_ValCtrl):
                                },
                               context_instance=RequestContext(request))
 
+def validarValoresControl(request, tp_codigo, tp_tema):
+    if request.method == 'POST':
+        try:
+            tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
+            valoresCorrectos = ValorControl.objects.filter(trabajoPractico=tp)
+            for valorCorrecto in valoresCorrectos:
+                request.POST[valorCorrecto.id]
+        except TrabajoPractico.DoesNotExist:
+            raise Http404
+    
 #@login_required
 #def asignarTP(request, legajo_id):
 #    #Valida permisos
