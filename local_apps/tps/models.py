@@ -53,7 +53,7 @@ class ValidacionControlesForm (forms.Form):
         #agrego cada valor de control individualmente
         for valCtrl in valoresControl:
             self.fields['valCtrl_%d' % valCtrl.id] = forms.CharField(label=valCtrl.titulo+" ("+valCtrl.unidad+")", help_text="Forma de c&aacute;lculo:<br />" +valCtrl.ayuda)
-            self.fields['valCtrl_%d' % valCtrl.id].widget.attrs['class'] = 'helpIcon'
+            self.fields['valCtrl_%d' % valCtrl.id].widget.attrs['class'] = 'helpicon'
     
 class AlumnoForm (ModelForm):
     class Meta:

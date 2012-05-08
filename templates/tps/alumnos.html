@@ -28,7 +28,7 @@
 	{% if alumno%}
 	<section>
 		{% if formAlumno %}
-		<article>
+		<article class="columnaSimple">
 			<form action="../alumno/agregarAlumno" method="post">
 				{% csrf_token %}
 				{{ formAlumno }}

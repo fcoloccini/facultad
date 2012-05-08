@@ -8,8 +8,8 @@
 {% block content%}
 	<a href="/facultad/principal"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
 	<h3 style="text-align: center;">Alumno {{ user.first_name }} {{ user.last_name }}</h3>
-<section style="width: 70%;">
-	<article style="width: 93%;">
+<section>
+	<article class="columnaSimple">
 		<p><strong>Autoevaluaci&oacute;n</strong></p>
 		{% if tp %}
 		<fieldset>
@@ -24,7 +24,7 @@
 				{% for valCtrl in valoresCtrl %}
 				<label for="{{ valCtrl.id }}">{{ valCtrl.titulo }}</label>
 				<div>
-					<input type="text" name="{{ valCtrl.id }}" id="{{ valCtrl.id }}" class="helpIcon" />
+					<input type="text" name="{{ valCtrl.id }}" id="{{ valCtrl.id }}" class="helpicon" />
 					{{ valCtrl.unidad }}
 					<span class="helpText">Forma de c&aacute;lculo:<br />{{ valCtrl.ayuda }}</span>
 				</div>
@@ -32,6 +32,7 @@
 				{% endif %}
 				<br />
 				<input type="submit" value="Validar" />
+				<p>Nota: NO utilizar punto separador de miles.</p>
 			</form>
 			{% else %}
 			<ul>

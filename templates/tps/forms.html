@@ -52,9 +52,11 @@ $(function(){
 		{% endfor %}
 		<input type="button" onclick="location.href='../{{ codigoTP }}/agregarValCtrl/'" value="Agregar un valor" />
 	</article>
+</section>
 {% endif %}
 {% if formValCtrl %}
-	<article>
+<section>
+	<article class="columnaSimple">
 		<form action="" method="post">
 			{% csrf_token %}
 			{{ formValCtrl }}
@@ -68,7 +70,7 @@ $(function(){
 {% endif %}
 {% if formAlumno %}
 <section>
-	<article>
+	<article class="columnaSimple">
 		<form action="../alumno/agregarAlumno" method="post">
 			{% csrf_token %}
 			{{ formAlumno }}

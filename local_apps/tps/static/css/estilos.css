@@ -1,10 +1,20 @@
 /*en CSS se coloca los estilos de las etiquetas primero, luego los IDs y por último las clases. Todo debe ordenarse en orden alfabético y  mayúsculas a minúsculas*/
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,hr {
+	/*margin:0;
+	padding: 0;*/
+}
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section {
+	display: block;
+}
+audio,canvas,video {
+	display: inline-block; *display:inline; *zoom: 1;
+}
 body
 {
-	background: olive;
+	background-color: olive;
 	color: #333333;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 16px; /*declarando el font-size global, es muy importante hacerlo porque todos los tamaños relativos dependen de este.*/
+	font-size: 100%; /*declarando el font-size global, es muy importante hacerlo porque todos los tamaños relativos dependen de este.*/
 	height: 90%;
 	line-height: 20px;
 }
@@ -20,30 +30,48 @@ h1
 	text-align: center;
 	text-shadow: 5px 5px 10px rgba(0,0,0,0.8); /*Sombra:1ro desplazamiento en eje X e Y, y difuminación (0px es nítido). Por último el color de la sombra: R,G,B y la opacidad que va de 0 a 1*/
 }
+header {
+	
+}
 section
 {
-	background: white;
+	background-color: white;
 	border-radius: 0.5em;
+	box-sizing: border-box; /*Evita que el padding aumente el tamaño de la caja*/
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
 	margin: 1em auto; /*margen externo, si se pone uno solo aplica para todo, sino se pone primero margen superior e inferior y luego para los laterales*/
-	padding: 1em 0; /*idem el margin pero interno*/
-	vertical-align: top;
-	width: 95%;
+	max-width: 1024px;
+	min-width: 545px;
+	overflow: hidden;
+	padding: 0.5em 1%; /*idem el margin pero interno*/
+	/*vertical-align: top;*/
+	width: 90%;
 }
 article
 {
-	/*background: #1A9DE0;
-	background: #447766;*/
-	background: #559999;
+	background-color: #559999;
 	border-radius: 0.5em;
-	display: inline-block;
-	margin: 0 2%;
+	box-sizing: border-box; /*Evita que el padding aumente el tamaño de la caja*/
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	float: left;
+	margin: 0.5em 2%;
 /*	min-height: 350px;*/
-	min-width: 230px;
-	padding: 0.5em;
+	min-width: 245px;
+	padding: 0.3em;
 	text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
 	/*transition: all 0.5s ease-in;*/
-	vertical-align: top;
-	width: 43%;
+	/*vertical-align: top;*/
+	width: 46%;
+}
+article.columnaSimple {
+	float: none;
+	margin: 0.5em auto;
+	max-width: 500px;
+	width: 96%
 }
 article ul li ul li{
 	display: none;
@@ -69,9 +97,13 @@ a:hover
 form {
 	background-color: #FFFFFF;
 	/*border-radius: 0.5em 0.5em 0.5em 0.5em;*/
+	box-sizing: border-box; /*Evita que el padding aumente el tamaño de la caja*/
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
 	margin: auto;
-	min-width: 210px;
-	padding: 5px 10px 5px 10px;
+	min-width: 229px;
+	padding: 0.5em;
 }
 form label{
 	display:block;
@@ -116,9 +148,7 @@ textarea:focus {
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 	outline: 0;
-	outline: thin dotted \9;
-	/* IE6-9 */
- 
+	outline: thin dotted \9;/* IE6-9 */
 }
 input[type="file"]:focus,
 input[type="radio"]:focus,
@@ -148,9 +178,9 @@ textarea[disabled],
 input[readonly],
 select[readonly],
 textarea[readonly] {
-  background-color: #eeeeee;
-  border-color: #ddd;
-  cursor: not-allowed;
+	background-color: #eeeeee;
+	border-color: #ddd;
+	cursor: not-allowed;
 }
 #primer-parrafo
 {
@@ -223,10 +253,10 @@ ul.errorlist + input,
 ul.errorlist + textarea {
 	background-color: #FFFF73;
 }
-.helpIcon {
+.helpicon {
 	display: inline-block !important;
 }
-form .helptext {
+.helptext {
 	background-color: #FFFF73;
 	border: 1px solid #D3D3D3;
 	border-radius: 5px;
@@ -236,10 +266,11 @@ form .helptext {
 	opacity: 0.9;
 	padding: 5px;
 	position: absolute;
-	z-index: 100;
 	resize: both;
+	width: 215px;
+	z-index: 100;
 }
-form .helptext:before {
+/*.helptext:before {
 	border-bottom: 9px solid transparent;
     border-right: 12px solid #FFFF73;
     border-top: 9px solid transparent;
@@ -248,10 +279,10 @@ form .helptext:before {
     height: 0;
     margin: 0 5px 0 -17px;
     width: 0;
-}
-.helpIcon:hover + br + .helptext,
-.helptext:hover,
-.helpIcon:focus + br + .helptext {
+}*/
+.helpicon:hover + br + .helptext,
+.helpicon:focus + br + .helptext,
+.helptext:hover, .helpicon:hover + .helptext {
 	display: inline;
 }
 .naranja {

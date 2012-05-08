@@ -14,7 +14,7 @@
 	<h1>Ingresa tus datos</h1>
 	<form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
 		<!--{{ form.username.label_tag }}-->
-		<label for="id_username" class="helpIcon" autofocus="autofocus">Nro. Legajo &oacute; Usuario</label>
+		<label for="id_username" class="helpicon" autofocus="autofocus">Nro. Legajo &oacute; Usuario</label>
 		<span class="helpText">S&oacute;lo letra y n&uacute;meros, sin guion ni barra</span>
 		{{ form.username }}
 		{{ form.password.label_tag }} {{ form.password }}

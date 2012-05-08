@@ -12,5 +12,4 @@ urlpatterns = patterns ('',
     url(r'^tps/(?P<tp_codigo>\d+)_(?P<tp_tema>[A-Z])/', 'local_apps.tps.views.trabajosPracticos'),
     url(r'^tps/error', 'local_apps.tps.views.error'),
     url(r'^tps/agregarTP', 'local_apps.tps.views.agregarTP'),
-    #url(r'^asignarTP/(?P<legajo_id>\w\d{5})', 'local_apps.tps.views.asignarTP'),
 )

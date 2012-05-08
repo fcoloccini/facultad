@@ -10,11 +10,6 @@ import re
 from django.db.models.aggregates import Count
 from django.conf import settings
 
-#def login(request, next="/facultad/principal"):
-#    return render_to_response('registration/login.html',
-#                              {'next': next},
-#                               context_instance=RequestContext(request))
-
 @login_required
 def index(request):
     #Muestra el index principal dependiendo si es profesor o alumno
@@ -108,30 +103,6 @@ def valorControl(request, tp_codigo, tp_tema, id_ValCtrl):
                               {'formValCtrl': form,
                                },
                               context_instance=RequestContext(request))
-    
-#@login_required
-#def asignarTP(request, legajo_id):
-#    #Valida permisos
-#    if not request.user.has_perms(['tps.change_trabajoPractico','auth.change_user']):
-#        return HttpResponseForbidden()
-#    
-#    alumno = User.objects.get(username=legajo_id)
-#    if alumno.tpsAsignados.count < '1':
-#        #tp = TrabajoPractico.objects.filter(nrosLegajosAsignados__contains=nroLegajoAsignacion)
-#        jump=False
-#        for tp in TrabajoPractico.objects.all(): #TODO mejorar esto, lo ideal es traer el tp filtradodesde el modelo
-#            nrosAsig = re.split(',', tp.nrosLegajosAsignados)
-#            nroLegajoAsignacion = getNroLegajoAsignacion(alumno.username)
-#            for nro in nrosAsig:
-#                if nro == nroLegajoAsignacion:
-#                    alumno.tpsAsignados.add(tp)
-#                    alumno.save()
-#                    jump=True
-#                    break
-#            if jump:
-#                break
-#        return HttpResponseRedirect(settings.FACULTAD_PRINCIPAL_PAGE)
-#    return HttpResponseRedirect('/facultad/alumno/'+alumno.nroLegajo)
     
 @login_required
 def agregarTP(request):

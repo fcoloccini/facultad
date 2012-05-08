@@ -33,7 +33,7 @@ body img + p {
 	margin: auto;
 	position: relative;
 	top: 7%;
-	width: 424px;
+	width: 450px;
 }
 .login form input[type=submit],
 .login form input[type=reset]{
