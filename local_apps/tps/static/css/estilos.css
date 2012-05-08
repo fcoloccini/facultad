@@ -270,7 +270,7 @@ ul.errorlist + textarea {
 	width: 215px;
 	z-index: 100;
 }
-/*.helptext:before {
+.helptext:before {
 	border-bottom: 9px solid transparent;
     border-right: 12px solid #FFFF73;
     border-top: 9px solid transparent;
@@ -279,10 +279,11 @@ ul.errorlist + textarea {
     height: 0;
     margin: 0 5px 0 -17px;
     width: 0;
-}*/
-.helpicon:hover + br + .helptext,
+}
+/*.helpicon:hover + br + .helptext,
 .helpicon:focus + br + .helptext,
-.helptext:hover, .helpicon:hover + .helptext {
+.helptext:hover,
+.helpicon:hover + .helptext*/ .helpicon + br + .helptext{
 	display: inline;
 }
 .naranja {
