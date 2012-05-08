@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 from django.db import models
 from django.forms.models import ModelForm
-from django.forms.widgets import TextInput, Textarea
+from django.forms.widgets import TextInput
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import re
@@ -47,6 +47,13 @@ class ValorControlForm (ModelForm):
         model = ValorControl
         exclude = ('trabajoPractico')
     
+class ValidacionControlesForm (forms.Form):
+    def __init__(self, form, valoresControl, *args, **kwargs):
+        super(ValidacionControlesForm, self).__init__(*args, **kwargs)
+        #agrego cada valor de control individualmente
+        for valCtrl in valoresControl:
+            self.fields['valCtrl_%d' % valCtrl.id] = forms.CharField(label=valCtrl.titulo+" ("+valCtrl.unidad+")", help_text="Forma de c&aacute;lculo:<br />" +valCtrl.ayuda)
+            self.fields['valCtrl_%d' % valCtrl.id].widget.attrs['class'] = 'helpIcon'
     
 class AlumnoForm (ModelForm):
     class Meta:

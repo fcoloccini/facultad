@@ -16,8 +16,11 @@
 			<legend>TP {{ tp.codigo }} Tema {{ tp.tema }}</legend>
 			<p>T&iacute;tulo: {{ tp.titulo }}</p>
 			<p>Consigna: {{ tp.consigna }}</p>
-			<form method="post" action="">
+			<form method="post" action="./validarValoresCtrl">
 				{% csrf_token %}
+				{% if formValCtrl %}
+					{{ formValCtrl }}
+				{% else %}
 				{% for valCtrl in valoresCtrl %}
 				<label for="{{ valCtrl.id }}">{{ valCtrl.titulo }}</label>
 				<div>
@@ -26,6 +29,7 @@
 					<span class="helpText">Forma de c&aacute;lculo:<br />{{ valCtrl.ayuda }}</span>
 				</div>
 				{% endfor %}
+				{% endif %}
 				<br />
 				<input type="submit" value="Validar" />
 			</form>

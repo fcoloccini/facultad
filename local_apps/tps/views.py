@@ -1,5 +1,5 @@
 from local_apps.tps.models import TPForm, TrabajoPractico, AlumnoForm, ValorControl, ValorControlForm,\
-    validar_legajo
+    ValidacionControlesForm
 from django.template import Context, loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render_to_response
@@ -71,12 +71,14 @@ def trabajosPracticos(request, tp_codigo, tp_tema):
             raise Http404
         try:
             valoresCtrl = ValorControl.objects.filter(trabajoPractico=tp)
+            form = ValidacionControlesForm(request.POST or None, valoresCtrl)#ELIMINAR
         except ValorControl.DoesNotExist:
             valoresCtrl = [ValorControl(),]
         return render_to_response('tps/autoevaluacionValoresCtrl.html',
                                   {'user': request.user,
                                    'codigoTP': str(tp.codigo) + '_' + tp.tema,
                                    'tp': tp,
+                                   'formValCtrl': form,#ELIMINAR
                                    'valoresCtrl': valoresCtrl,},
                                    context_instance=RequestContext(request))
         
@@ -106,16 +108,6 @@ def valorControl(request, tp_codigo, tp_tema, id_ValCtrl):
                               {'formValCtrl': form,
                                },
                               context_instance=RequestContext(request))
-
-def validarValoresControl(request, tp_codigo, tp_tema):
-    if request.method == 'POST':
-        try:
-            tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
-            valoresCorrectos = ValorControl.objects.filter(trabajoPractico=tp)
-            for valorCorrecto in valoresCorrectos:
-                request.POST[valorCorrecto.id]
-        except TrabajoPractico.DoesNotExist:
-            raise Http404
     
 #@login_required
 #def asignarTP(request, legajo_id):
@@ -168,18 +160,47 @@ def agregarValorCtrl(request, tp_codigo, tp_tema):
     if not request.user.has_perms(['tps.change_trabajopractico','tps.change_valorcontrol']):
         return HttpResponseForbidden()
     
+    form = ValorControlForm(request.POST or None)
     if request.method == 'POST':
-        form = ValorControlForm(request.POST)
         if form.is_valid():
             valCtrl = form.save(commit=False)
             tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
             valCtrl.trabajoPractico = tp
             valCtrl.save()
             return HttpResponseRedirect('/facultad/tps/'+tp_codigo+'_'+tp_tema)
-    else:
-        form = ValorControlForm()
+        
     return render_to_response('tps/forms.html',
                               {'formValCtrl': form,},
+                              context_instance=RequestContext(request))
+
+@login_required
+def validarValoresControl(request, tp_codigo, tp_tema):
+    try:
+        tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
+    except TrabajoPractico.DoesNotExist:
+        raise Http404
+    valoresCorrectos = ValorControl.objects.filter(trabajoPractico=tp)
+    form = ValidacionControlesForm(request.POST or None, valoresCorrectos)
+    if request.method == 'POST':
+        for valorCorrecto in valoresCorrectos:
+            valorMin = valorCorrecto.valor*0.97
+            valorMax = valorCorrecto.valor*1.03
+            value = request.POST["valCtrl_"+str(valorCorrecto.id)]
+            valorFormateado = re.sub(',','.',value)
+            try:
+                if valorFormateado != "" and float(valorFormateado) < valorMax and float(valorFormateado) > valorMin:
+                    form.fields["valCtrl_"+str(valorCorrecto.id)].widget.attrs['style'] = 'background-color: #99FF99'
+                else:
+                    form.fields["valCtrl_"+str(valorCorrecto.id)].widget.attrs['style'] = 'background-color: #FF9999'
+            except ValueError:
+                form.fields["valCtrl_"+str(valorCorrecto.id)].widget.attrs['style'] = 'background-color: #FF9999'
+            form.fields["valCtrl_"+str(valorCorrecto.id)].widget.attrs['value'] = request.POST["valCtrl_"+str(valorCorrecto.id)]
+    
+    return render_to_response('tps/autoevaluacionValoresCtrl.html',
+                              {'formValCtrl': form,
+                               'valoresCorrectos': valoresCorrectos,
+                               'tp': tp,
+                               },
                               context_instance=RequestContext(request))
 
 @login_required
@@ -189,8 +210,6 @@ def agregarAlumno(request):
         return HttpResponseForbidden()
     
     if request.method == 'POST':
-        #nroLegajoStr = formatLegajoToString(request.POST['nroLegajo'])
-        #request.POST['nroLegajo'] = nroLegajoStr
         try:
             alumno = User.objects.get(username=request.POST['username'])
             alumnoInstance = alumno
@@ -221,5 +240,3 @@ def validateGroupProfesores(user):
             isProfesor = True
             break
     return isProfesor
-#def formatLegajoFromString(legajo_id_str):
-#    re.compile(pattern, flags)

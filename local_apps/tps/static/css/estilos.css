@@ -73,6 +73,10 @@ form {
 	min-width: 210px;
 	padding: 5px 10px 5px 10px;
 }
+form label{
+	display:block;
+}
+
 input,
 select,
 textarea
@@ -222,12 +226,12 @@ ul.errorlist + textarea {
 .helpIcon {
 	display: inline-block !important;
 }
-.helpText {
+form .helptext {
 	background-color: #FFFF73;
 	border: 1px solid #D3D3D3;
 	border-radius: 5px;
 	display: none;
-	margin: -8px 0 0 14px;
+	margin: -46px 0 0 223px;
 	max-width: 230px;
 	opacity: 0.9;
 	padding: 5px;
@@ -235,7 +239,7 @@ ul.errorlist + textarea {
 	z-index: 100;
 	resize: both;
 }
-.helpText:before {
+form .helptext:before {
 	border-bottom: 9px solid transparent;
     border-right: 12px solid #FFFF73;
     border-top: 9px solid transparent;
@@ -245,9 +249,9 @@ ul.errorlist + textarea {
     margin: 0 5px 0 -17px;
     width: 0;
 }
-.helpIcon:hover + .helpText,
-.helpText:hover,
-.helpIcon:focus + .helpText {
+.helpIcon:hover + br + .helptext,
+.helptext:hover,
+.helpIcon:focus + br + .helptext {
 	display: inline;
 }
 .naranja {
