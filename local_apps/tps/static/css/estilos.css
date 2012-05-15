@@ -31,7 +31,8 @@ h1
 	text-shadow: 5px 5px 10px rgba(0,0,0,0.8); /*Sombra:1ro desplazamiento en eje X e Y, y difuminación (0px es nítido). Por último el color de la sombra: R,G,B y la opacidad que va de 0 a 1*/
 }
 header {
-	
+	display: inline-block;
+	float: right;
 }
 section
 {

@@ -8,6 +8,7 @@
 {% block content%}
 	<a href="/facultad/principal"><img id="logo-fceia" src="/static/images/FCEIA-logo.png" /></a>
 	<h3 style="text-align: center;">Alumno {{ user.first_name }} {{ user.last_name }}</h3>
+	Legajo {{ user.username }}
 <section>
 	<!--<article>
 		<p><strong>Lista de Alumnos:</strong></p>
@@ -66,7 +67,4 @@
 <section style="text-align: right; background: transparent">
 	<!--<input type="button" onclick="location.href='/facultad/tps/agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />-->
 </section>
-<footer>
-	[<a href="">Modificar mis datos</a>] - [<a href="/accounts/password/change">Cambiar mi clave</a>] - [<a href="/accounts/logout">Salir</a>]
-</footer>
 {% endblock %}

@@ -20,7 +20,7 @@ $(function(){
 {% if formTP %}
 <section>
 	<article>
-		<form action="../agregarTP" method="post">
+		<form enctype="multipart/form-data" action="../agregarTP/" method="post">
 			{% csrf_token %}
 			{{ formTP }}
 			<br /> <br />

@@ -12,7 +12,7 @@ from django.conf import settings
 
 @login_required
 def index(request):
-    #Muestra el index principal dependiendo si es profesor o alumno
+    #Muestra index principal especifico dependiendo si es del grupo profesores o alumnos
     isProfesor = validateGroupProfesores(request.user)
     
     if isProfesor:
@@ -33,6 +33,7 @@ def index(request):
     })
     return HttpResponse(t.render(c))
 
+#prueba de pagina de error
 def error(request):
     t = loader.get_template('404.html')
     c = Context ({
@@ -42,6 +43,7 @@ def error(request):
 
 @login_required
 def trabajosPracticos(request, tp_codigo, tp_tema):
+    #si es profesor devuelve formulario de modificacion de TP
     if validateGroupProfesores(request.user):
         try:
             tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
@@ -60,6 +62,7 @@ def trabajosPracticos(request, tp_codigo, tp_tema):
                                    'valoresCtrl': valoresCtrl,},
                                   context_instance=RequestContext(request))
     else:
+        #devuelve formulario de autoevaluacion para el alumno
         try:
             tp = TrabajoPractico.objects.get(codigo=tp_codigo, tema=tp_tema)
         except TrabajoPractico.DoesNotExist:
@@ -115,7 +118,7 @@ def agregarTP(request):
             tp = TrabajoPractico.objects.get(codigo = request.POST['codigo'], tema=request.POST['tema'])
         except TrabajoPractico.DoesNotExist:
             tp = TrabajoPractico()
-        form = TPForm(request.POST, instance=tp)
+        form = TPForm(request.POST, request.FILES, instance=tp)
         if form.is_valid():
             form.save(commit=True)
             return HttpResponseRedirect(settings.FACULTAD_PRINCIPAL_PAGE)
@@ -127,11 +130,13 @@ def agregarTP(request):
 
 @login_required
 def agregarValorCtrl(request, tp_codigo, tp_tema):
+    #Alta de los Valores de control para los trabajos practicos
     #Valida permisos
     if not request.user.has_perms(['tps.change_trabajopractico','tps.change_valorcontrol']):
         return HttpResponseForbidden()
     
     form = ValorControlForm(request.POST or None)
+    #si el request viene por POST se da de alta, sino devuelve un formulario vacio
     if request.method == 'POST':
         if form.is_valid():
             valCtrl = form.save(commit=False)

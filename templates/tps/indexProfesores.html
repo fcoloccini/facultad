@@ -58,6 +58,7 @@
 						<li>Nros legajos asignados: {{ tp.nrosLegajosAsignados }}</li>
 						<li>Fecha inicio: {{ tp.fechaInicio }}</li>
 						<li>Fecha fin: {{ tp.fechaFin }}</li>
+						<li>Imagen: {{ tp.imagen }}</li>
 					</ul>
 				</li>
 				{% endfor %}
@@ -73,9 +74,9 @@
 	</section>
 	<section style="text-align: right; background: transparent">
 		<!--<input type="button" onclick="location.href='/facultad/tps/agregarAlumno'" value="A&ntilde;adir un alumno" />-->
-		<input type="button" onclick="location.href='/facultad/tps/agregarTP'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
+		<input type="button" onclick="location.href='/facultad/tps/agregarTP/'" value="A&ntilde;adir un trabajo pr&aacute;ctico" />
 	</section>
 	<footer>
-		[<a href="/accounts/invite">Invitar a un profesor</a>] - [<a href="/accounts/password/change">Cambiar mi clave</a>] - [<a href="/accounts/logout">Salir</a>]
+		[<a href="/accounts/invite">Invitar a un profesor</a>]
 	</footer>
 {% endblock %}

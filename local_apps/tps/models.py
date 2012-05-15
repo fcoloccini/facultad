@@ -16,6 +16,7 @@ class TrabajoPractico (models.Model):
     nrosLegajosAsignados = models.CommaSeparatedIntegerField('Nros Legajos Asignados', max_length=19)
     fechaInicio = models.DateField('Desde cuándo se activa', null=True, blank=True)
     fechaFin = models.DateField('Último día en que está activo', null=True, blank=True)
+    imagen = models.ImageField(upload_to='tps/imagesTP')
     class Meta:
         unique_together = ("codigo", "tema")
     def __unicode__(self):
